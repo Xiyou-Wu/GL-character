@@ -1,0 +1,12 @@
+.lake/
+*.olean
+*.ilean
+*.c
+*.o
+*.so
+*.dll
+*.dylib
+*.pyc
+__pycache__/
+.DS_Store
+Thumbs.db

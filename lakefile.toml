@@ -1,0 +1,24 @@
+name = "GLCharacter"
+version = "0.1.0"
+keywords = ["math", "Lean", "formalization"]
+defaultTargets = ["GLCharacter", "MathTheoremProject", "ProbabilityCharacter"]
+
+[leanOptions]
+pp.unicode.fun = true
+relaxedAutoImplicit = false
+weak.linter.mathlibStandardSet = true
+maxSynthPendingDepth = 3
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+rev = "v4.29.1"
+
+[[lean_lib]]
+name = "GLCharacter"
+
+[[lean_lib]]
+name = "MathTheoremProject"
+
+[[lean_lib]]
+name = "ProbabilityCharacter"
