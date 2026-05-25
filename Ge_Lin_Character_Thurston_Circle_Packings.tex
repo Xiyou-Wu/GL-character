@@ -1,0 +1,1016 @@
+\documentclass[12pt]{amsart}
+\usepackage{amsfonts,latexsym,rawfonts,amsmath,amssymb,amsthm,times,a4wide}
+\usepackage{graphicx}
+\usepackage[plainpages=false]{hyperref}
+\usepackage{mathrsfs}
+\usepackage{enumerate}
+\usepackage{bbm}
+
+\numberwithin{equation}{section}
+\DeclareMathOperator{\arccosh}{arccosh}
+
+\usepackage{amscd}
+\usepackage{eufrak}
+\usepackage{euscript}
+\usepackage{array}
+\usepackage{color}
+\usepackage{stmaryrd}
+
+\renewcommand\baselinestretch{1.1}
+\renewcommand{\theequation}{\arabic{section}.\arabic{equation}}
+
+\newcommand{\beq}{\begin{equation}}
+\newcommand{\eeq}{\end{equation}}
+\newcommand{\beqs}{\begin{eqnarray*}}
+\newcommand{\eeqs}{\end{eqnarray*}}
+\newcommand{\beqn}{\begin{eqnarray}}
+\newcommand{\eeqn}{\end{eqnarray}}
+
+\newtheorem{prop}{Proposition}[section]
+\newtheorem{theo}[prop]{Theorem}
+\newtheorem{lem}[prop]{Lemma}
+\newtheorem{claim}[prop]{Claim}
+\newtheorem{cor}[prop]{Corollary}
+\newtheorem{rem}[prop]{Remark}
+\newtheorem{ex}[prop]{Example}
+\newtheorem{defi}[prop]{Definition}
+\newtheorem{conj}[prop]{Conjecture}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\T}{\mathcal{T}}
+\newcommand{\wt}{\widetilde}
+
+\newcommand{\tm}{\begin{theo}}
+\newcommand{\tmd}{\end{theo}}
+\newcommand{\co}{\begin{cor}}
+\newcommand{\cod}{\end{cor}}
+\newcommand{\prp}{\begin{prop}}
+\newcommand{\prpd}{\end{prop}}
+
+\begin{document}
+
+\title[The character of Thurston's circle packings]{The character of Thurston's circle packings}
+
+\author{Huabin Ge}
+\address{School of Mathematics, Renmin University of China, Beijing 100872, China}
+\email{hbge@ruc.edu.cn}
+
+\author{Aijin Lin}
+\address{Department of Mathematics, National University of Defense Technology, Changsha 410073, China}
+\email{linaijin@nudt.edu.cn}
+
+\begin{abstract}
+We introduce the character of Thurston's circle packings in hyperbolic geometry background.
+Consequently, some quite simple criteria are obtained for the existence of hyperbolic circle packings. For example,
+if a closed surface $X$ admits a circle packing with all vertex degree $d_i \geq 7$, then it admits a unique complete
+hyperbolic metric, so that the triangulation graph of the circle packing is isotopic to a geometric decomposition
+of $X$. This criterion is sharp due to the fact that any closed hyperbolic surface admits no triangulations with
+all $d_i \leq 6$. As a corollary, we obtain a new proof of the uniformization theorem for closed surfaces with genus
+$g \geq 2$, and moreover, any hyperbolic closed surface has a geometric decomposition. To approach our results, we
+shall use Chow-Luo's combinatorial Ricci flow as a fundamental tool.
+\end{abstract}
+
+\keywords{circle packings, combinatorial Ricci flow, character}
+
+\maketitle
+
+\section{Background}
+
+Thurston's hyperbolization theorem for 3-manifolds is one of the truly great mathematical discoveries of
+the twentieth century. It establishes a deep and strong link between the geometry and topology of 3-
+manifolds and the algebra of discrete groups of $\mathrm{Isom}(\mathbb{H}^3)$. Proving Thurston's hyperbolization for Haken
+3-manifolds requires three major tools: the existence of hierarchies in Haken manifolds which allows us
+to cut a Haken manifold into polyhedra; Andreev's theorem which allows us to give these polyhedra
+hyperbolic structures; and the skinning lemma which allows us to glue the pieces together again.
+
+The beautiful theorem of Andreev \cite{Andreev1,Andreev2} states that if we make a topological model for a polyhedron
+and choose candidate dihedral angles (angles between the faces) that are at most $\pi/2$, then there are
+simply verifiable conditions that tell us whether there exists a hyperbolic polyhedron with the assigned
+angles. Furthermore, if such a polyhedron exists, it is unique. Andreev's theorem provides a complete
+characterization of compact hyperbolic polyhedra with non-obtuse dihedral angles, and is essential for
+proving Thurston's hyperbolization theorem for Haken 3-manifolds.
+
+Thurston \cite{Thurston} observed a very deep connection between circle packings and hyperbolic polyhedra. Given
+a convex hyperbolic polyhedron in the hyperbolic 3-space $\mathbb{B}^3$, the boundaries of the oriented hyperbolic
+planes containing its faces form a circle packing on the sphere $\partial \mathbb{B}^3$. This circle packing records all the
+information of the original polyhedron: its combinatorial type is exactly dual to the 1-skeleton of the
+polyhedron, and the exterior intersection angles between the circles are equal to the dihedral angles
+between the faces of the hyperbolic polyhedron. Thurston's circle packing theorem regards the existence
+and uniqueness of circle packings on higher genus surfaces with a prescribed combinatorial type and non-
+obtuse exterior intersection angles. Thurston pointed out that the sphere version of his theorem followed
+from the Andreev's theorem. For related results on circle packings and hyperbolic polyhedra, we refer to
+the works of Marden-Rodin \cite{MardenRodin}, Colin de Verdi\`ere \cite{Colin}, Bowditch \cite{Bowditch}, Rivin-Hodgson \cite{RivinHodgson}, Rivin \cite{Rivin1,Rivin2},
+Bao-Bonahon \cite{BaoBonahon}, Bobenko-Springborn \cite{BobenkoSpringborn}, Leibon \cite{Leibon}, Rousset \cite{Rousset}, Schlenker \cite{Schlenker}
+and others. Thurston also posed a conjecture regarding the convergence of infinitesimal hexagonal tangent circle packings to
+conformal mappings \cite{Thurston2}, which was proved by Rodin-Sullivan \cite{RodinSullivan}. From then on circle packings have
+played significant roles in the study of low dimensional geometry and topology, complex analysis (such as
+the famous Koebe uniformization conjecture for circle domains, see e.g. \cite{HeSchramm1,HeSchramm2,HeSchramm3}), and various problems
+in combinatorics \cite{LiuZhou,Schramm1}, discrete and computational geometry \cite{DaiGuLuo,Stephenson}, minimal surfaces \cite{BobenkoHoffmannSpringborn}, and many
+others.
+
+A circle packing $\mathcal{P} = \{C_v : v \in V\}$ on a surface is a collection of circles with a particular combinatorial
+structure. Let $X$ be a closed surface with a triangulation $\mathcal{T} = (V,E,F)$, where $V,E,F$ are the set
+of vertices, edges and triangles respectively. Assume $\mu$ is a Riemannian metric on $X$ with constant
+curvature. Given a weight $\Phi : E \to [0,\pi/2]$, a circle packing $\mathcal{P}$ on $(X,\mu)$ is called $(\mathcal{T},\Phi)$-type if there
+exists a geodesic triangulation of $\mathcal{T}$ on $(X,\mu)$ isotopic to $\mathcal{T}$ such that the circle $C_v$ is centered at $\mathcal{T}_\mu(v)$
+and for any edge $e \in E$, the two circles $C_v, C_u$, which correspond to the vertices $v,u$ of $e$, intersect at
+an angle $\Phi(e)$. A fundamental question arises naturally: does there exist a $(\mathcal{T},\Phi)$-type circle packing $\mathcal{P}$
+on $(X,\mu)$, and is it unique when it exists? A celebrated answer to this question is the following circle
+packing theorem due to Thurston \cite[Chap.~13, Theorem~13.7.1]{Thurston}.
+
+\begin{theo}[Thurston]\label{thm:Thurston}
+Let $\mathcal{T}$ be a triangulation of a closed surface $X$ of genus $g > 0$. Let
+$\Phi: E \to [0,\pi/2]$ be a function satisfying the following conditions:
+\begin{itemize}
+\item[($\mathrm{T}_1$).] If $e_1, e_2, e_3$ form a null-homotopic closed path in $\mathcal{T}$, and if $\sum_{l=1}^3 \Phi(e_l) \geq \pi$, then these edges form
+the boundary of a triangle of $\mathcal{T}$;
+\item[($\mathrm{T}_2$).] If $e_1, e_2, e_3, e_4$ form a null-homotopic closed path and if
+$\sum_{l=1}^4 \Phi(e_l) = 2\pi$, then $e_1, e_2, e_3, e_4$ form the
+boundary of the union of two adjacent triangles.
+\end{itemize}
+Then there is a constant curvature metric $\mu$ on $X$ such that $(X,\mu)$ supports a $(\mathcal{T},\Phi)$-type circle packing
+$\mathcal{P}$. Moreover, the pair $(\mu,\mathcal{P})$ is unique up to isometries if $g > 1$, and up to similarities if $g = 1$.
+\end{theo}
+
+The sphere version of the above theorem follows from Koebe \cite{Koebe} and Andreev \cite{Andreev1,Andreev2}. Together they are
+often named Koebe-Andreev-Thurston's circle packing theorem. In this paper we call the above theorem
+Thurston's circle packing theorem for simplicity. Of course this will not weaken Koebe and Andreev's
+contributions. Thurston's theorem gives a complete criterion of the existence of circle packings. Note
+it does not assume the existence of the metric $\mu$ a priori. Consequently, there is a uniquely determined
+geometric decomposition of $(X,\mu)$ isotopic to $\mathcal{T}$ so that the edges are geodesics.
+
+\section{Main Results}
+
+Theorem \ref{thm:Thurston} gives a wonderful criterion for the existence of circle packings with constant curvatures.
+However, Thurston's criteria $(\mathrm{T}_1)$ and $(\mathrm{T}_2)$ are extremely difficult to verify for general weight $\Phi \in [0,\pi/2]$,
+since the angle structure $\Phi$ and the combinatorial structure of $\mathcal{T}$ are globally intertwined together on $X$.
+Inspired by the work in Ge-Jiang-Shen \cite{GeJiangShen}, Ge-Hua \cite{GeHua} and Feng-Ge-Hua \cite{FengGeHua} on 3-dimensional geometric
+triangulations, we introduce the characters of circle packings to overcome this difficulty. Consequently,
+we found some quite simple criteria for the existence of Thurston's circle packings. First we have
+
+\begin{theo}\label{thm:main1}
+Let $X$ be a closed surface. If $X$ admits a triangulation $\mathcal{T}$ with degree $d_i \geq 7$ at each
+vertex, then for any given constant weight $\Phi : E \to [0,\pi/2]$ there exists a unique complete hyperbolic
+metric $\mu$ on $X$ so that $(X,\mu)$ supports a $(\mathcal{T},\Phi)$-type circle packing $\mathcal{P}$.
+\end{theo}
+
+The requirement that $d_i \geq 7$ is sharp in the sense that every circle packing $\mathcal{P}$ with all vertex degree
+$d_i \leq 6$ can not be supported on any closed surface $X$ of genus $g \geq 2$, and every circle packing $\mathcal{P}$ with all
+vertex degree $d_i \geq 7$ can not be supported on the sphere or torus, see Section \ref{sec:circle} for details.
+
+The requirement that $\Phi$ is a constant in Theorem \ref{thm:main1} is too restrictive, and it can be released to some
+extent. In fact, Theorem \ref{thm:main1} can be generalized to the following
+
+\begin{theo}\label{thm:main2}
+Let $X$ be a closed surface. If $X$ admits a triangulation $\mathcal{T}$ with degree $d_i \geq 7$ at each
+vertex, then for any weight $\Phi \in [\arccos\eta, \arccos\xi] \subset [0,\pi/2]$, where $0 \leq \xi \leq \eta \leq 1$ are arbitrary chosen
+so that $\eta < (2\cos\frac{2\pi}{7} - 1 + \xi)/(2 - 2\cos\frac{2\pi}{7})$, there exists a unique complete hyperbolic metric $\mu$ on $X$ so
+that $(X,\mu)$ supports a $(\mathcal{T},\Phi)$-type circle packing $\mathcal{P}$.
+\end{theo}
+
+Assume $\Phi$ is a constant, or $\Phi$ takes values in $[0, 0.33\pi]$ or in $[0.4\pi, \pi/2]$ respectively. They all satisfy the
+assumption in Theorem \ref{thm:main2} by Corollary \ref{cor:3.8}. However, under a slightly stronger condition than $d_i \geq 7$,
+we do not need any restrictions on $\Phi$.
+
+\begin{theo}\label{thm:main3}
+Let $X$ be a closed surface. If $X$ admits a triangulation $\mathcal{T}$ with degree $d_i \geq 9$ at each
+vertex, then for any given weight $\Phi: E \to [0,\pi/2]$ there exists a unique complete hyperbolic metric $\mu$ on
+$X$ such that $(X,\mu)$ supports a $(\mathcal{T},\Phi)$-type circle packing $\mathcal{P}$.
+\end{theo}
+
+Compared to the Thurston's conditions $(\mathrm{T}_1)$ and $(\mathrm{T}_2)$, our degree conditions do not respect the angle
+structure $\Phi$. This seems quite amazing and may lie deep. Actually, the two degree criteria (i.e. $d_i \geq 7$ for
+constant weight or $d_i \geq 9$ for arbitrary weight) are all special cases of the ``character criteria'' $L_i(\mathcal{T},\Phi) >
+2\pi$ for each vertex $i \in V$, where
+\begin{equation}\label{eq:character}
+L_i(\mathcal{T},\Phi) = \sum_{\triangle ijk \in F} \arccos \frac{1 + \cos\Phi_{ij} + \cos\Phi_{ik} - \cos\Phi_{jk}}{2\sqrt{1 + \cos\Phi_{ij}}\sqrt{1 + \cos\Phi_{ik}}},
+\end{equation}
+where the sum runs over all triangles having a vertex $i$. The character of $(X,\mathcal{T},\Phi)$ is
+\[
+L(\mathcal{T},\Phi) = (L_1(\mathcal{T},\Phi), \cdots, L_N(\mathcal{T},\Phi)).
+\]
+We will show in Section \ref{sec:circle} that Theorem \ref{thm:main1},
+\ref{thm:main2} and Theorem \ref{thm:main3} are all special cases of the following theorem.
+
+\begin{theo}\label{thm:main4}
+Let $X$ be a closed surface with a triangulation $\mathcal{T}$ and a weight $\Phi : E \to [0,\pi/2]$. If
+the character $L_i(\mathcal{T},\Phi) > 2\pi$ at all vertices, then $\chi(X) < 0$ and there exists a unique complete hyperbolic
+metric $\mu$ on $X$ such that $(X,\mu)$ supports a $(\mathcal{T},\Phi)$-type circle packing $\mathcal{P}$. On the other hand, if the
+character $L_i(\mathcal{T},\Phi) \leq 2\pi$ at all vertices, then there exists no such $(\mathcal{T},\Phi)$-type circle packings.
+\end{theo}
+
+The distinct feature of the characters $L_i(\mathcal{T},\Phi)$ is their localities. They can be verified locally and
+separately at each vertex. However, Thurston's conditions $(\mathrm{T}_1)$ and $(\mathrm{T}_2)$ are intertwined together, which
+are global and can not be verified separately.
+
+As an application of Theorem \ref{thm:main1}, we reprove the following well known uniformization theorem.
+Actually, combining Theorem \ref{thm:main1} in the case of weight $\Phi \equiv 0$ with the fact that every orientable
+closed surface of genus $g \geq 2$ admits a triangulation with degree $d = 7$ at each vertex, we obtain
+the uniformization theorem for surfaces with higher genus:
+
+\begin{cor}\label{cor:uniformization}
+Every closed surface of genus $g \geq 2$ admits a complete hyperbolic metric.
+\end{cor}
+
+Moreover, we reprove the following geometric decomposition theorem for hyperbolic surfaces. We refer
+to Martelli's book \cite{Martelli} for more details on geometric decompositions.
+
+\begin{cor}\label{cor:geometric}
+A closed surface $X$ of genus $g \geq 2$ admits infinitely many geometric decompositions.
+Actually, for any triangulation $\mathcal{T}$ with degree $d > 6$ at each vertex, there exists a geometric decomposition
+on $X$ isotopic to $\mathcal{T}$ so that the edges are geodesics.
+\end{cor}
+
+\section{Circle packings and their characters}\label{sec:circle}
+
+Circle packings provide a bridge between the combinatoric on one hand, and the geometry on the other
+hand. Let $X$ be a closed surface with a triangulation $\mathcal{T} = (V,E,F)$, where $V,E,F$ denote the sets
+of vertices, edges, and faces respectively. A weight on the triangulation is defined to be a function
+$\Phi : E \to [0,\pi/2]$. Throughout this paper, a function defined on vertices is an $N$-dimensional column
+vector, where $N = |V|$ is the number of vertices. Moreover, all vertices $v_1, \ldots, v_N$ are abbreviated as
+$1, \ldots, N$ for simplicity. Next we study the circle packings on a topological surface from the perspective
+of metrics.
+
+Endow $X$ with hyperbolic (flat, resp.) cone metrics as follows. A circle packing metric based on
+$(X,\mathcal{T},\Phi)$ is a function $r : V \to (0,+\infty)$. We consider $r = (r_1, \cdots, r_N) \in \mathbb{R}^N_{>0}$ as a point in $\mathbb{R}^N_{>0} =
+(0,+\infty)^N$ in the whole paper. Geometrically, a circle packing metric $r$ assigns a circle with radius $r_i$ at
+every vertex $i$, and realizes each edge $e_{ij} \in E$ joining $i$ to $j$ by a hyperbolic (Euclidean, resp.) segment
+of length
+\begin{equation}\label{eq:hyp-edge}
+l_{ij} = \cosh^{-1}(\cosh r_i \cosh r_j + \sinh r_i \sinh r_j \cos\Phi(e_{ij}))
+\end{equation}
+(resp. $l_{ij} = \sqrt{r_i^2 + r_j^2 + 2r_i r_j \cos\Phi(e_{ij})}$).
+
+Thurston once noted \cite[Lemma~13.7.2]{Thurston} that, for each triangle $\triangle ijk \in F$, the three edge lengths $l_{ij}$,
+$l_{jk}$ and $l_{ik}$ satisfy triangle inequalities. Thus one can realize each triangle $\triangle ijk \in F$ by a hyperbolic
+(Euclidean, resp.) triangle of edge lengths $l_{ij}, l_{jk}$ and $l_{ik}$. The triangle is formed by the centers of three
+circles of radii $r_i, r_j$ and $r_k$ intersecting at angles $\Phi_{ij}, \Phi_{jk}$ and $\Phi_{ik}$, where $\Phi_{mn}$ denotes the value of $\Phi$
+on the edge $e_{mn} \in E$. This produces a hyperbolic cone metric (flat cone metric, resp.) on the surface
+$X$ with singularities at the vertices. Denote $\theta_i^{jk}$ (or $\theta_i$ when there is no confusion) as the inner angle at
+a vertex $i$ in the triangle $\triangle ijk \in F$. Let $A_i = \sum_{\triangle ijk \in F} \theta_i^{jk}$ be the cone angle at the vertex $i$, which is
+equal to the sum of inner angles at $i$ for all triangles incident to $i$. The combinatorial Gauss curvature
+$K_i$ at $i$ is defined as
+\begin{equation}\label{eq:curvature}
+K_i = 2\pi - A_i = 2\pi - \sum_{\triangle ijk \in F} \theta_i^{jk}.
+\end{equation}
+Then for a given $(\mathcal{T},\Phi)$-type circle packing $\mathcal{P}$, every circle packing metric $r = (r_1, \cdots, r_N)$ produces a
+hyperbolic (flat, resp.) cone metric on $X$ with cone singularities $A_i$ centered on each $i \in V$. There are no
+singularities on $X \setminus V$ by the constructions. At a particular vertex $i$, $A_i = 2\pi$ means there is no singularity
+at $i$. Hence a circle packing metric $r_{ze}$ with $K(r_{ze}) = 0$ is particular meaningful in the sense that there
+are no singularities on $X$, even on $V$: it produces a complete hyperbolic (flat, resp.) metric $\mu$ on $X$. It
+is $\mathcal{T}$-type and has exterior intersection angles given by $\Phi$. Moreover, those hyperbolic (Euclidean, resp.)
+triangles form a geodesic triangulation of $(X,\mu)$. Specifically, when it produces a hyperbolic metric, we
+name the unique circle packing $r_{ze}$ a hyperbolic circle packing.
+
+\begin{rem}
+By abuse of language, a circle packing metric $r$ is also called a circle packing for brevity.
+The original $(\mathcal{T},\Phi)$-type circle packing $\mathcal{P}$ may be considered as the equivalent class of all circle packing
+metrics $r \in \mathbb{R}^N_{>0}$. We say our setting is in the hyperbolic background if we consider hyperbolic cone
+metrics constructed by gluing hyperbolic triangles with hyperbolic edge lengthes \eqref{eq:hyp-edge}. The Euclidean
+background is defined similarly.
+\end{rem}
+
+\begin{defi}\label{def:character}
+Let $X$ be a closed surface with a triangulation $\mathcal{T}$ and a weight $\Phi \in [0,\pi/2]$. For any
+circle packing based on $(X,\mathcal{T},\Phi)$, define the character $L_i(\mathcal{T},\Phi)$ at each $i \in V$ by
+\begin{equation}\label{eq:char-def}
+L_i(\mathcal{T},\Phi) = \sum_{\triangle ijk \in F} \arccos \frac{1 + \cos\Phi_{ij} + \cos\Phi_{ik} - \cos\Phi_{jk}}{2\sqrt{1 + \cos\Phi_{ij}}\sqrt{1 + \cos\Phi_{ik}}},
+\end{equation}
+where the sum runs over all triangles having a vertex $i$. The character of $(X,\mathcal{T},\Phi)$ is
+\[
+L(\mathcal{T},\Phi) = (L_1(\mathcal{T},\Phi), \cdots, L_N(\mathcal{T},\Phi)).
+\]
+\end{defi}
+
+It seems that the character is just defined for a weighted triangulation $(\mathcal{T},\Phi)$ on $X$, and has no relation
+to any circle packings. However, both the combinatorial structure $\mathcal{T}$ and the angle structure $\Phi$ come
+from a circle packing $\mathcal{P}$ on $X$. Recall that a circle packing $\mathcal{P} = \{C_v : v \in V\}$ on $(S,\mu)$ is of $(\mathcal{T},\Phi)$-type if
+there exists a geodesic triangulation of $\mathcal{T}$ on $(S,\mu)$ isotopic to $\mathcal{T}$ such that the circle $C_v$ is centered at $\mathcal{T}_\mu(v)$
+and for any edge $e \in E$, the two circles $C_v, C_u$, which correspond to the vertices $v,u$ of $e$, intersect at an
+angle $\Phi(e)$. Hence the weighted triangulation $(\mathcal{T},\Phi)$ records all the information of a $(\mathcal{T},\Phi)$-type circle
+packing $\mathcal{P}$, that is, the combinatorial structure given by $\mathcal{T}$ and the angle structure given by $\Phi$. Hence
+the character $(L_i(\mathcal{T},\Phi))_{i \in V}$ is indeed an invariant of all $(\mathcal{T},\Phi)$-type circle packings $\mathcal{P}$ on a closed surface
+$X$.
+
+\begin{prop}\label{prop:3.3}
+Given a weighted triangulated surface $(X,\mathcal{T},\Phi)$. For each vertex $i \in V$, the
+character $L_i(\mathcal{T},\Phi)$ is exactly the cone angle $A_i$ of a circle packing metric $r = (1,\cdots, 1)$ in the Euclidean
+background.
+\end{prop}
+
+\begin{proof}
+Assume $r_i = 1$ for each vertex $i \in V$. Then by the Euclidean edge length formula, $l_{ij} = \sqrt{2 + 2\cos\Phi_{ij}}$ for each edge $e_{ij} \in E$.
+Consider a triangle $\triangle ijk \in F$, it's easy to see
+\[
+\cos\theta_i^{jk} = \frac{1 + \cos\Phi_{ij} + \cos\Phi_{ik} - \cos\Phi_{jk}}{2\sqrt{1 + \cos\Phi_{ij}}\sqrt{1 + \cos\Phi_{ik}}}.
+\]
+Then by the definition of the character \eqref{eq:char-def}, we obtain $L_i(\mathcal{T},\Phi) = \sum_{\triangle ijk \in F} \theta_i^{jk} = A_i$.
+\end{proof}
+
+\begin{prop}\label{prop:3.4}
+Denote the average character by $L_{av} = \sum_{i \in V} L_i(\mathcal{T},\Phi) / N$, then
+\[
+L_{av} = 2\pi\left(1 - \frac{\chi(X)}{N}\right).
+\]
+Consequently, $L_{av} > 2\pi$ if $\chi(X) < 0$, $L_{av} = 2\pi$ if $\chi(X) = 0$ and $L_{av} < 2\pi$ if $\chi(X) > 0$.
+\end{prop}
+
+\begin{proof}
+Note $2\pi - L_i(\mathcal{T},\Phi)$ is the combinatorial curvature $K_i$ of a particular packing $r \equiv 1$ in the
+Euclidean background by Proposition \ref{prop:3.3}. The conclusion follows from the following combinatorial Gauss-
+Bonnet formula \cite{ChowLuo}
+\[
+\sum_{i \in V} K_i = 2\pi\chi(X)
+\]
+in the Euclidean background. We can also prove this proposition directly. For simplicity, we write
+\[
+\gamma_i^{jk} = \arccos \frac{1 + \cos\Phi_{ij} + \cos\Phi_{ik} - \cos\Phi_{jk}}{2\sqrt{1 + \cos\Phi_{ij}}\sqrt{1 + \cos\Phi_{ik}}}.
+\]
+Consider a particular triangle $\triangle ijk \in F$ with edge lengths $l_{mn} = \sqrt{2 + 2\cos\Phi_{mn}}$, where an edge $e_{mn}$ is
+chosen from $\{e_{ij}, e_{jk}, e_{ki}\}$. Note $\gamma_i^{jk}$ is just the inner angle at the vertex $i$. Hence we have
+\[
+\gamma_i^{jk} + \gamma_j^{ik} + \gamma_k^{ij} = \pi.
+\]
+Since $X$ is closed and $\mathcal{T}$ is a triangulation, then $2|E| = 3|F|$, and it follows
+\begin{align*}
+\sum_{i \in V} L_i(\mathcal{T},\Phi) &= \sum_{i \in V} \sum_{\triangle ijk \in F} \gamma_i^{jk} \\
+&= \sum_{\triangle ijk \in F} (\gamma_i^{jk} + \gamma_j^{ik} + \gamma_k^{ij}) \\
+&= \pi |F| = 2\pi(|E| - |F|) = 2\pi N - 2\pi\chi(X).
+\end{align*}
+\end{proof}
+
+Obviously, Theorem \ref{thm:main1} follows from Theorem \ref{thm:main4} and the following corollary:
+
+\begin{cor}\label{cor:3.5}
+Given a weighted triangulated surface $(X,\mathcal{T},\Phi)$ such that $\Phi : E \to [0,\pi/2]$ is a
+constant. If $d_i \geq 7$ at a vertex $i \in V$, then $L_i(\mathcal{T},\Phi) > 2\pi$.
+\end{cor}
+
+\begin{proof}
+If $\Phi$ takes a constant, then $L_i(\mathcal{T},\Phi) = \sum_{\triangle ijk \in F} \arccos \frac{1}{2} = \frac{\pi d_i}{3} \geq \frac{7\pi}{3}$ by \eqref{eq:char-def}.
+\end{proof}
+
+\begin{prop}\label{prop:3.6}
+Given a weighted triangulated surface $(X,\mathcal{T},\Phi)$ with $\Phi : E \to [0,\pi/2]$. For each
+vertex $i \in V$, the character has a lower bound
+\[
+L_i(\mathcal{T},\Phi) \geq d_i \arccos \frac{3}{4} \approx \frac{2.07\pi}{9} d_i.
+\]
+\end{prop}
+
+\begin{proof}
+For arbitrary $a, b \in [0,1]$, it is easy to show $4a^2 + 4b^2 \leq 5 + a + b + ab$. It follows
+\[
+\frac{(1 + a + b)^2}{(1 + a)(1 + b)} \leq \frac{9}{4}.
+\]
+Now consider a triangle $\triangle ijk \in F$ and substitute $a = \cos\Phi_{ij}$ and $b = \cos\Phi_{ik}$ into the above inequality,
+we get
+\[
+\left(\frac{1 + \cos\Phi_{ij} + \cos\Phi_{ik} - \cos\Phi_{jk}}{2\sqrt{1 + \cos\Phi_{ij}}\sqrt{1 + \cos\Phi_{ik}}}\right)^2 \leq \frac{(1 + \cos\Phi_{ij} + \cos\Phi_{ik})^2}{4(1 + \cos\Phi_{ij})(1 + \cos\Phi_{ik})} \leq \frac{9}{16},
+\]
+which implies
+\begin{equation}\label{eq:3.5}
+0 \leq \frac{1 + \cos\Phi_{ij} + \cos\Phi_{ik} - \cos\Phi_{jk}}{2\sqrt{1 + \cos\Phi_{ij}}\sqrt{1 + \cos\Phi_{ik}}} \leq \frac{3}{4}.
+\end{equation}
+It follows the conclusion.
+\end{proof}
+
+Theorem \ref{thm:main3} follows from Theorem \ref{thm:main4} and the following corollary:
+
+\begin{cor}\label{cor:3.7}
+Given a weighted triangulated surface $(X,\mathcal{T},\Phi)$ with $\Phi: E \to [0,\pi/2]$. If $d_i \geq 9$ at a
+vertex $i \in V$, then $L_i(\mathcal{T},\Phi) > 2\pi$.
+\end{cor}
+
+By thorough analysis on the proof of Proposition \ref{prop:3.6}, Corollary \ref{cor:3.5} can be improved. In fact, Theorem
+\ref{thm:main2} follows from Theorem \ref{thm:main4} and the following corollary:
+
+\begin{cor}\label{cor:3.8}
+Given a weighted triangulated surface $(X,\mathcal{T},\Phi)$. Assume the weight satisfies $\Phi \in
+[0, 0.33\pi]$, or $\Phi \in [0.4\pi, \pi/2]$, or more generally $\Phi \in [\arccos\eta, \arccos\xi] \subset [0,\pi/2]$, where $0 \leq \xi \leq \eta \leq 1$
+are arbitrary chosen so that $\eta < (2\cos\frac{2\pi}{7} - 1 + \xi)/(2 - 2\cos\frac{2\pi}{7})$. If $d_i \geq 7$ at a vertex $i \in V$, then
+$L_i(\mathcal{T},\Phi) > 2\pi$.
+\end{cor}
+
+\begin{proof}
+Denote $\lambda = 2\cos\frac{2\pi}{7}$. For arbitrary $a, b \in [\xi, \eta] \subset [0,1]$, it is easy to prove
+\[
+1 + a + b - \lambda\sqrt{1 + a}\sqrt{1 + b} \leq 1 + 2\eta - \lambda(1 + \eta).
+\]
+Further assume $\eta < \frac{\lambda - 1 + \xi}{2 - \lambda}$, which is equivalent to $1 + 2\eta - \lambda(1 + \eta) < \xi$, then
+\[
+1 + a + b - \lambda\sqrt{1 + a}\sqrt{1 + b} < \xi.
+\]
+Assume $\Phi \in [\arccos\eta, \arccos\xi] \subset [0,\pi/2]$, then $\xi \leq \cos\Phi_{ij}, \cos\Phi_{ik}, \cos\Phi_{jk} \leq \eta$. Substitute $a = \cos\Phi_{ij}$
+and $b = \cos\Phi_{ik}$ into the above inequality, we get
+\[
+1 + \cos\Phi_{ij} + \cos\Phi_{ik} - \lambda\sqrt{1 + \cos\Phi_{ij}}\sqrt{1 + \cos\Phi_{ik}} < \xi \leq \cos\Phi_{jk}.
+\]
+Then it follows
+\[
+0 \leq \frac{1 + \cos\Phi_{ij} + \cos\Phi_{ik} - \cos\Phi_{jk}}{2\sqrt{1 + \cos\Phi_{ij}}\sqrt{1 + \cos\Phi_{ik}}} < \frac{\lambda}{2} = \cos\frac{2\pi}{7}
+\]
+and further
+\[
+\arccos \frac{1 + \cos\Phi_{ij} + \cos\Phi_{ik} - \cos\Phi_{jk}}{2\sqrt{1 + \cos\Phi_{ij}}\sqrt{1 + \cos\Phi_{ik}}} > \frac{2\pi}{7}.
+\]
+If $d_i \geq 7$, then we get the conclusion
+\[
+L_i(\mathcal{T},\Phi) > \sum_{\triangle ijk \in F} \frac{2\pi}{7} \geq 7 \cdot \frac{2\pi}{7} = 2\pi.
+\]
+Specially, choose $[\xi, \eta] = [0, 0.309]$ or $[\xi, \eta] = [0.509, 1]$. Direct calculations show that they all satisfy
+the assumption $\eta < \frac{\lambda - 1 + \xi}{2 - \lambda}$ and $[\arccos 1, \arccos 0.509] = [0, 0.33\pi]$, $[\arccos 0.309, \arccos 0] = [0.4\pi, \pi/2]$.
+Hence we finish the proof.
+\end{proof}
+
+\section{Combinatorial Ricci flows}\label{sec:ricci}
+
+The combinatorial Ricci flows were introduced by Chow-Luo \cite{ChowLuo}, which are the analogue of Hamilton's
+Ricci flow in the combinatorial setting. They obtained a new proof of the existence part of Thurston's
+circle packing theorem, by showing that the combinatorial Ricci flows produce solutions which converge
+exponentially fast to Thurston's circle packings on surfaces. Since then, the combinatorial Ricci flows
+provide an effective algorithm for finding complete hyperbolic metrics, and are one of the main tools of
+finding geometric structures on surfaces and 3-manifolds. Luo \cite{Luo} also initialed a program to hyperbolize
+3-manifolds with boundary by the combinatorial Ricci flows. The program was formulated more clearly
+and carried forward extensively by the series work of Ge and his collaborators. Particularly for a 3-
+manifold with boundary of higher genus, we refer to \cite{FengGeHua} where a hyperbolic metric and an ideal geometric
+decomposition were obtained under suitable combinatorial conditions.
+
+We recall Chow-Luo's theory briefly. Let $X$ be a closed surface with a triangulation $\mathcal{T}$ and a weight
+$\Phi \in [0,\pi/2]$. Considered as a smooth family of circle packings $r(t) \subset \mathbb{R}^N_{>0}$ based on $(X,\mathcal{T},\Phi)$, which evolves
+according to the following combinatorial Ricci flow
+\begin{equation}\label{eq:euclidean-flow}
+\frac{dr_i(t)}{dt} = -K_i r_i, \quad i \in V
+\end{equation}
+in the Euclidean background. For any initial circle packing $r(0) \in \mathbb{R}^N_{>0}$, a solution to the combinatorial
+Ricci flow \eqref{eq:euclidean-flow} is called convergent if $\lim_{t \to \infty} r_i(t) = r_i(\infty) \in \R$ exists for all $i \in V$. As a consequence,
+$\lim_{t \to \infty} K_i(t) = K_i(\infty)$ exists for all $i$ since the curvature map $K(r) = (K_1(r), \cdots, K_N(r))$ is a smooth map
+of $r$. A convergent solution $r(t)$ is called convergent exponentially fast if there are positive constants $c_1, c_2$
+so that for all time $t \geq 0$ and all vertices $i \in V$, $|r_i(t) - r_i(\infty)| \leq c_1 e^{-c_2 t}$ and $|K_i(t) - K_i(\infty)| \leq c_1 e^{-c_2 t}$.
+
+Chow-Luo proved that, in the Euclidean background, the solution to the normalized combinatorial Ricci
+flow
+\begin{equation}\label{eq:normalized-flow}
+\frac{dr_i}{dt} = \left(\frac{2\pi\chi(X)}{N} - K_i\right) r_i, \quad i \in V
+\end{equation}
+which is related to \eqref{eq:euclidean-flow} by a change of scales, exists for all time. Moreover, the solution converges if and
+only if there exists a circle packing with constant curvature $2\pi\chi(X)/N$, and in this case, the solution
+converges exponentially fast to a constant curvature circle packing (which is unique up to scaling).
+
+We will use the following combinatorial Ricci flow in the hyperbolic background
+\begin{equation}\label{eq:hyperbolic-flow}
+\frac{dr_i(t)}{dt} = -K_i \sinh r_i, \quad i \in V
+\end{equation}
+as the main tool to approach our results in this paper. It provides a useful tool to deform any initial
+circle packing $r(0)$ to a hyperbolic one. In deed, in case $\chi(X) < 0$, Chow-Luo proved that the solution
+to \eqref{eq:hyperbolic-flow} exists for all time $t \geq 0$ and converges if and only if Thurston's conditions $(\mathrm{T}_1)$ and $(\mathrm{T}_2)$ are
+satisfied. Furthermore, if it converges, then it converges exponentially fast to a circle packing $r_{ze}$ with
+$K_i = 0$ at all vertices $i \in V$, i.e. a hyperbolic circle packing. In this case, the hyperbolic circle packing
+$r_{ze}$ is unique by the rigidity part of Thurston's circle packing theorem.
+
+Thurston's criteria $(\mathrm{T}_1)$ and $(\mathrm{T}_2)$ are globally intertwined together. It is generally not easy to verify
+directly. Using the character $L_i(\mathcal{T},\Phi)$ introduced in Definition \ref{def:character}, we give some simple criteria for the
+existence of Thurston's hyperbolic circle packings next.
+
+\begin{theo}\label{thm:4.1}
+Given a weighted triangulated closed surface $(X,\mathcal{T},\Phi)$ with the weight $\Phi: E \to [0,\pi/2]$.
+Consider the hyperbolic background setting.
+
+(a) If the character $L_i(\mathcal{T},\Phi) > 2\pi$ at all vertices, then $\chi(X) < 0$ and there exists a unique hyperbolic
+circle packing $r_{ze}$ based on $(X,\mathcal{T},\Phi)$. Moreover, the solution $r(t)$ to the combinatorial Ricci flow \eqref{eq:hyperbolic-flow}
+converges exponentially fast to $r_{ze}$ for any initial circle packing $r(0) \in \mathbb{R}^N_{>0}$. Consequently, $r_{ze}$ determines
+a unique complete hyperbolic metric $\mu$ on $X$ such that $(X,\mu)$ supports a geometric decomposition isotopic
+to $\mathcal{T}$, and each edge connecting two adjacent vertices is a hyperbolic geodesic.
+
+(b) If the character $L_i(\mathcal{T},\Phi) \leq 2\pi$ at all vertices, then $\chi(X) \geq 0$. Consequently, there exists no
+hyperbolic circle packings based on $(X,\mathcal{T},\Phi)$. In this case, any solution $r(t)$ to \eqref{eq:hyperbolic-flow} satisfies $r(t) \to 0$
+when $t$ tends to $+\infty$.
+\end{theo}
+
+\section{Geometry of hyperbolic triangles}\label{sec:triangles}
+
+In this section, we study the geometry of hyperbolic triangles which are the basic building blocks of the
+weighted triangulated surface $(X,\mathcal{T},\Phi)$. For any $\{v_i, v_j, v_k\} \subset \mathbb{H}^2$, we denote by $\triangle ijk$ the corresponding
+hyperbolic triangle in $\mathbb{H}^2$. Obviously, the interior angle $\theta_i = \theta_i(\vec{r})$ at each vertex $i$ is a smooth function
+of $\vec{r} = (r_i, r_j, r_k)$. By the hyperbolic cosine law we have
+\[
+\cos\theta_i(\vec{r}) = \frac{\cosh l_{ij} \cosh l_{ik} - \cosh l_{jk}}{\sinh l_{ij} \sinh l_{ik}}.
+\]
+Recall Thurston once derived
+\begin{lem}[Lemma~13.7.3, \cite{Thurston}]\label{lem:Thurston}
+For a weighted triangulated closed surface $(X,\mathcal{T},\Phi)$ whose weight
+satisfies $\Phi : E \to [0,\pi/2]$. In the hyperbolic background geometry $\mathbb{H}^2$ one has $\partial\theta_i/\partial r_i < 0$, $\partial\theta_i/\partial r_j > 0$
+for $i \neq j$ and $\partial(\theta_i + \theta_j + \theta_k)/\partial r_i < 0$.
+\end{lem}
+
+Choose a special radius vector $\vec{r} = t\vec{1} = (t, t, t)$, we get the following monotonicity proposition for the
+angle function $\theta_i(t\vec{1})$.
+
+\begin{prop}\label{prop:5.2}
+The angle function $t \mapsto \theta_i(t\vec{1})$ is continuously differentiable and strictly decreasing
+function in $(0, +\infty)$.
+\end{prop}
+
+\begin{proof}
+Set $f(t) = \cos\theta_i(t\vec{1})$, then we have
+\begin{align*}
+\cosh l_{ij} &= \cosh^2 t + \sinh^2 t \cos\Phi_{ij} = \sinh^2 t(1 + \cos\Phi_{ij}) + 1; \\
+\cosh l_{ik} &= \cosh^2 t + \sinh^2 t \cos\Phi_{ik} = \sinh^2 t(1 + \cos\Phi_{ik}) + 1; \\
+\cosh l_{jk} &= \cosh^2 t + \sinh^2 t \cos\Phi_{jk} = \sinh^2 t(1 + \cos\Phi_{jk}) + 1.
+\end{align*}
+By a tedious but direct computation we have
+\begin{equation}\label{eq:5.1}
+f(t) = \frac{(1 + \cos\Phi_{ij})(1 + \cos\Phi_{ik})\sinh^2 t + (1 + \cos\Phi_{ij} + \cos\Phi_{ik} - \cos\Phi_{jk})}{f_1(t)f_2(t)},
+\end{equation}
+where
+\[
+f_1(t) = \sqrt{(1 + \cos\Phi_{ij})^2\sinh^2 t + 2(1 + \cos\Phi_{ij})},
+\]
+\[
+f_2(t) = \sqrt{(1 + \cos\Phi_{ik})^2\sinh^2 t + 2(1 + \cos\Phi_{ik})}.
+\]
+By taking the derivative,
+\begin{equation}\label{eq:5.2}
+f'(t) = \frac{a(\Phi)\sinh(2t)[b(\Phi)\sinh^2 t + c(\Phi)]}{f_1^3(t)f_2^3(t)},
+\end{equation}
+where
+\begin{align*}
+a(\Phi) &= (1 + \cos\Phi_{ij})(1 + \cos\Phi_{ik}), \\
+b(\Phi) &= (1 + \cos\Phi_{ij})(1 + \cos\Phi_{ik})(1 + \cos\Phi_{jk}), \\
+c(\Phi) &= (1 + \cos\Phi_{jk})(2 + \cos\Phi_{ij} + \cos\Phi_{ik}) - (\cos\Phi_{ij} - \cos\Phi_{ik})^2.
+\end{align*}
+Note the weight function $\Phi : E \to [0,\pi/2]$, hence $\cos\Phi_{ij}, \cos\Phi_{ik}, \cos\Phi_{jk} \in [0,1]$. This implies that
+$f_1(t) > 0, f_2(t) > 0, a(\Phi) > 0, b(\Phi) > 0$ and
+\begin{align*}
+c(\Phi) &= (1 + \cos\Phi_{jk})(2 + \cos\Phi_{ij} + \cos\Phi_{ik}) + 2\cos\Phi_{ij}\cos\Phi_{ik} \\
+&\quad + \cos\Phi_{ij}(1 - \cos\Phi_{ij}) + \cos\Phi_{ik}(1 - \cos\Phi_{ik}) \geq 2.
+\end{align*}
+Therefore, $f'(t) > 0$ and $f(t)$ is strictly increasing, which is equivalent to that $\theta_i(t\vec{1})$ is strictly decreasing.
+\end{proof}
+
+\begin{prop}\label{prop:5.4}
+For any weight function $\Phi: E \to [0,\pi/2]$, the following limits exist:
+\[
+\lim_{t \to 0} \theta_i(t\vec{1}) = \arccos \frac{1 + \cos\Phi_{ij} + \cos\Phi_{ik} - \cos\Phi_{jk}}{2\sqrt{1 + \cos\Phi_{ij}}\sqrt{1 + \cos\Phi_{ik}}},
+\]
+where $\vec{1} = (1,1,1)$, and $\lim_{t \to +\infty} \theta_i(t\vec{1}) = 0$. As a special case, if the weight $\Phi: E \to [0,\pi/2]$ is a constant,
+we obtain $\lim_{t \to 0} \theta_i(t\vec{1}) = \frac{\pi}{3}$.
+\end{prop}
+
+\begin{proof}
+Taking limits directly in the formula \eqref{eq:5.1}, we get the first two limits. In the case that $\Phi: E \to
+[0,\pi/2]$ is a constant, we set $\Phi \equiv \varphi$, $\forall e_{ij} \in E$. By \eqref{eq:5.1} we have
+\[
+f(t) = \frac{(1 + \cos\varphi)^2\sinh^2 t + (1 + \cos\varphi)}{(1 + \cos\varphi)^2\sinh^2 t + 2(1 + \cos\varphi)}.
+\]
+Then the third limit can follow from direct computations.
+\end{proof}
+
+Now we are ready to prove the following comparison principle for inner angles which is key to proofs
+of our main theorems.
+
+\begin{lem}\label{lem:5.6}
+For a fixed hyperbolic triangle $\triangle ijk$. If $r_i = \min\{r_i, r_j, r_k\}$, then $\theta_i(\vec{r}) \geq \theta_i(r_i\vec{1})$, while if
+$r_i = \max\{r_i, r_j, r_k\}$, then $\theta_i(\vec{r}) \leq \theta_i(r_i\vec{1})$.
+\end{lem}
+
+\begin{proof}
+Let $\sigma: [0,1] \to \mathbb{R}^3_{>0}$ be a curve defined as
+\[
+\sigma(s) = (r_i(s), r_j(s), r_k(s)) := (1-s)\vec{r} + s r_i \vec{1}, \quad \forall s \in [0,1],
+\]
+which connects the two points $\vec{r}, r_i\vec{1} \in \mathbb{R}^3_{>0}$ and
+\[
+r_i(s) = r_i, \quad r_j(s) = r_j + s(r_i - r_j), \quad r_k(s) = r_k + s(r_i - r_k), \quad \forall s \in [0,1].
+\]
+If $r_i = \min\{r_i, r_j, r_k\}$, then by Lemma \ref{lem:Thurston},
+\begin{equation}\label{eq:5.3}
+\frac{d}{ds}(\theta_i(\sigma(s))) = (r_i - r_j)\frac{\partial\theta_i}{\partial r_j}(\sigma(s)) + (r_i - r_k)\frac{\partial\theta_i}{\partial r_k}(\sigma(s)) < 0.
+\end{equation}
+Hence $\theta_i(\sigma(s))$ is decreasing in $[0,1]$. This yields that
+\[
+\theta_i(\vec{r}) = \theta_i(\sigma(0)) \geq \theta_i(\sigma(1)) = \theta_i(r_i\vec{1}).
+\]
+Similarly, if $r_i = \max\{r_i, r_j, r_k\}$, then by Lemma \ref{lem:Thurston},
+\begin{equation}\label{eq:5.4}
+\frac{d}{ds}(\theta_i(\sigma(s))) = (r_i - r_j)\frac{\partial\theta_i}{\partial r_j}(\sigma(s)) + (r_i - r_k)\frac{\partial\theta_i}{\partial r_k}(\sigma(s)) > 0.
+\end{equation}
+Hence $\theta_i(\sigma(s))$ is increasing in $[0,1]$. This yields that
+\[
+\theta_i(\vec{r}) = \theta_i(\sigma(0)) \leq \theta_i(\sigma(1)) = \theta_i(r_i\vec{1}).
+\]
+This completes the proof.
+\end{proof}
+
+\section{Long time existence}\label{sec:longtime}
+
+Chow-Luo \cite{ChowLuo} proved the long time existence of the solutions to the combinatorial Ricci flow \eqref{eq:hyperbolic-flow} by
+the maximum principle. In this section we give an alternative proof based on our comparison principle. We
+need the following calculus lemma introduced by Ge-Hua \cite{GeHua}. For a continuous function $f: [0,+\infty) \to \mathbb{R}$
+and any $C \in \mathbb{R}$, the upper level set of $f$ at $C$ is defined as $\{f > C\} := \{t \in [0,+\infty) : f(t) > C\}$. The
+lower level set $\{f < C\}$ is defined similarly.
+
+\begin{lem}[Lemma~3.9, \cite{GeHua}]\label{lem:6.1}
+Let $f: [0,+\infty) \to \mathbb{R}$ be a locally Lipschitz function. Suppose that
+there is a constant $C_1$ such that $f'(t) \leq 0$, for a.e. $t \in \{f > C_1\}$, then
+\[
+f(t) \leq \max\{f(0), C_1\}, \quad \forall t \in [0,+\infty).
+\]
+Similarly, if $f'(t) \geq 0$, for a.e. $t \in \{f < C_1\}$, then
+\[
+f(t) \geq \min\{f(0), C_1\}, \quad \forall t \in [0,+\infty).
+\]
+\end{lem}
+
+To estimate the inner angles in hyperbolic geometry, we need the following proposition in \cite{ChowLuo} on a
+hyperbolic triangle $\triangle ijk$ in $\mathbb{H}^2$.
+
+\begin{lem}[Lemma~3.5, \cite{ChowLuo}]\label{lem:6.2}
+For any $\epsilon > 0$, there exists a constant $C_2 = C_2(\epsilon)$ such that when
+$r_i > C_2$, the inner angle $\theta_i$ in the hyperbolic triangle $\triangle ijk$ is smaller than $\epsilon$.
+\end{lem}
+
+Chow-Luo \cite{ChowLuo} once obtained the following theorem. We give an alternative proof here.
+
+\begin{prop}[Corollary~3.6, \cite{ChowLuo}]\label{prop:6.3}
+Let $r(t)$ be a solution to the combinatorial Ricci flow \eqref{eq:hyperbolic-flow}. Then
+there exists a positive constant $C_3 = C_3(\mathcal{T}, r(0)) > 0$ depending on the triangulation $\mathcal{T}$ and the initial
+data $r(0)$ such that $r_i(t) \leq C_3$ for all $i \in V$.
+\end{prop}
+
+\begin{proof}
+Set $f(t) := \max_{m \in V} r_m(t)$. Then $f(t)$ is a locally Lipschitz function and for a.e. $t \in [0,+\infty)$,
+there exists $i \in V$ depending on $t$, such that
+\begin{equation}\label{eq:6.1}
+f(t) = r_i(t), \quad f'(t) = r_i'(t).
+\end{equation}
+Let $C_2$ be the constant determined in Lemma \ref{lem:6.2} such that for any hyperbolic triangle $\triangle ijk$, if $r_i \geq C_2$,
+then $\theta_i \leq \pi / \max_{m \in V} d_m$. We claim that $f'(t) \leq 0$, for a.e. $t \in \{f > C_2\}$.
+
+Let $t \in [0,+\infty)$ and $i \in V$ satisfying \eqref{eq:6.1} and $t \in \{f > C_2\}$. Then for any hyperbolic triangle $\triangle ijk$
+incident to $i$ realized by the circle packing $r(t)$, $\theta_i(r(t)) \leq \pi / \max_{m \in V} d_m$. Hence by the definition of the
+combinatorial Gauss curvature,
+\[
+K_i(r(t)) = 2\pi - \sum_{\triangle ijk \in F} \theta_i(r(t)) > \pi.
+\]
+Then by the combinatorial Ricci flow \eqref{eq:hyperbolic-flow}, $f'(t) = r_i'(t) = -K_i \sinh r_i < 0$. This proves the claim.
+Then the theorem follows from Lemma \ref{lem:6.1}.
+\end{proof}
+
+We provide an alternative proof for the long time existence of the solution to \eqref{eq:hyperbolic-flow}.
+
+\begin{prop}[Proposition~3.4, \cite{ChowLuo}]\label{prop:6.4}
+For any initial circle packing $r(0) \in \mathbb{R}^N_{>0}$, the solution $r(t)$ to
+the combinatorial Ricci flow \eqref{eq:hyperbolic-flow} exists for all time $t \in [0,+\infty)$.
+\end{prop}
+
+\begin{proof}
+Since all functions in the equation \eqref{eq:hyperbolic-flow} are smooth and locally Lipschitz continuous, there is
+a unique solution $r(t)$ with $t \in [0, T)$ and $0 < T \leq +\infty$ by the classical ODE theory. Rewrite \eqref{eq:hyperbolic-flow} as
+$d \ln(\tanh \frac{r_i}{2}) / dt = -K_i$. Note $|K_i| \leq 2\pi \max_{m \in V}(d_m + 1) =: C$. Thus
+\[
+\tanh\frac{r_i(0)}{2} e^{-Ct} \leq \tanh\frac{r_i(t)}{2} \leq \tanh\frac{r_i(0)}{2} e^{Ct},
+\]
+which implies that $r_i(t)$ cannot go to $0$ in finite time. On the other hand, by Proposition \ref{prop:6.3}, there exists
+a constant $C_3$ depending on the initial data $r(0)$ and the triangulation $\mathcal{T}$ such that $r_i(t) \leq C_3$. Therefore,
+by the extension theorem of solutions in ODE theory, the solution to the combinatorial Ricci flow \eqref{eq:hyperbolic-flow}
+exists for all $t \in [0,+\infty)$.
+\end{proof}
+
+\section{Proof of Theorem \ref{thm:4.1}}\label{sec:proof}
+
+In this section we give the proof of the main theorem, namely Theorem \ref{thm:4.1}. First, we prove the lower
+bound estimate for the solution to the combinatorial Ricci flow \eqref{eq:hyperbolic-flow}.
+
+\begin{theo}\label{thm:7.1}
+Let $X$ be a closed surface with given weighted triangulation $(\mathcal{T},\Phi)$. Assume the
+character $L_i(\mathcal{T},\Phi) > 2\pi$ for all $i \in V$. Let $r(t)$ be a solution to the combinatorial Ricci flow \eqref{eq:hyperbolic-flow}.
+Then there is a positive constant $C = C(\mathcal{T}, \Phi, r(0)) > 0$ depending only on the weighted triangulation
+$(\mathcal{T},\Phi)$ and the initial data $r(0)$ such that $r_i(t) \geq C$ for all vertices and all times.
+\end{theo}
+
+\begin{proof}
+Set $g(t) := \min_{m \in V} r_m(t)$. Then $g(t)$ is a locally Lipschitz function and for a.e. $t \in [0,+\infty)$,
+there exists a special vertex $i \in V$ depending on $t$, such that
+\begin{equation}\label{eq:7.1}
+g(t) = r_i(t), \quad g'(t) = r_i'(t).
+\end{equation}
+For the particular vertex $i$, by Proposition \ref{prop:5.2} and Proposition \ref{prop:5.4}, $\theta_i(t\vec{1})$ is continuously differentiable
+and
+\[
+\lim_{t \to 0} \theta_i(t\vec{1}) = \arccos \frac{1 + \cos\Phi_{ij} + \cos\Phi_{ik} - \cos\Phi_{jk}}{2\sqrt{1 + \cos\Phi_{ij}}\sqrt{1 + \cos\Phi_{ik}}}.
+\]
+Hence, for any positive constant $\epsilon_0$, small enough and is to be determined later, there exists a constant
+$C = C(\mathcal{T}, \Phi, r(0)) > 0$ such that for any $t \leq C$,
+\[
+\theta_i(t\vec{1}) \geq \arccos \frac{1 + \cos\Phi_{ij} + \cos\Phi_{ik} - \cos\Phi_{jk}}{2\sqrt{1 + \cos\Phi_{ij}}\sqrt{1 + \cos\Phi_{ik}}} - \epsilon_0.
+\]
+We claim that $g'(t) \geq 0$, for a.e. $t \in \{g < C\}$.
+
+Let $t \in [0,+\infty)$ and $i \in V$ satisfying \eqref{eq:7.1} and $t \in \{g < C\}$. Then for any hyperbolic triangle $\triangle ijk$
+incident to $i$ realized by the circle packing $r(t)$,
+\[
+r_i(t) = \min\{r_i(t), r_j(t), r_k(t)\} < C.
+\]
+Set $\vec{r}(t) = (r_i(t), r_j(t), r_k(t))$, then by Lemma \ref{lem:5.6},
+\[
+\theta_i(\vec{r}(t)) \geq \theta_i(r_i(t)\vec{1}) \geq \arccos \frac{1 + \cos\Phi_{ij} + \cos\Phi_{ik} - \cos\Phi_{jk}}{2\sqrt{1 + \cos\Phi_{ij}}\sqrt{1 + \cos\Phi_{ik}}} - \epsilon_0.
+\]
+Under the assumption $L_j(\mathcal{T},\Phi) > 2\pi$ for all $j \in V$, we choose the constant $\epsilon_0$ so that
+\[
+0 < \epsilon_0 < \frac{\min_{j \in V}(L_j(\mathcal{T},\Phi) - 2\pi)}{\max_{j \in V} d_j}.
+\]
+Note $\epsilon_0$ depends on the data of the weighted triangulation $(\mathcal{T},\Phi)$ on $X$. It follows
+\begin{align*}
+K_i(r(t)) &= 2\pi - \sum_{\triangle ijk \in F} \theta_i(\vec{r}(t)) \\
+&\leq 2\pi - \sum_{\triangle ijk \in F} \left(\arccos \frac{1 + \cos\Phi_{ij} + \cos\Phi_{ik} - \cos\Phi_{jk}}{2\sqrt{1 + \cos\Phi_{ij}}\sqrt{1 + \cos\Phi_{ik}}} - \epsilon_0\right) \\
+&= \epsilon_0 \cdot d_i - (L_i(\mathcal{T},\Phi) - 2\pi) \\
+&\leq \epsilon_0 \cdot \max_{j \in V} d_j - \min_{j \in V}(L_j(\mathcal{T},\Phi) - 2\pi) \\
+&< 0.
+\end{align*}
+By \eqref{eq:7.1} and the combinatorial Ricci flow \eqref{eq:hyperbolic-flow}, $g'(t) = r_i'(t) = -K_i \sinh r_i \geq 0$. This proves the claim.
+Then the theorem follows from the claim and Lemma \ref{lem:6.1}.
+\end{proof}
+
+Let $r(t)$ be a solution to the combinatorial Ricci flow \eqref{eq:hyperbolic-flow}. Then by Theorem \ref{thm:7.1} and Proposition \ref{prop:6.3},
+there exist positive constants $C_1$ and $C_2$ depending on the weighted triangulation $(\mathcal{T},\Phi)$ and the initial
+data $r(0)$ such that
+\[
+C_1 \leq r_i(t) \leq C_2, \quad \forall i \in V, \; t \in [0,+\infty).
+\]
+This is equivalent to say that $r(t)$ lies in the compact region in $\mathbb{R}^N_{>0}$. Then the existence part of Theorem
+\ref{thm:4.1} is obtained by the following proposition proved by Chow-Luo \cite{ChowLuo}.
+
+\begin{prop}[Proposition~3.7, \cite{ChowLuo}]\label{prop:7.2}
+Suppose $r(t)$ for $t \in [0,+\infty)$ is a solution to the combinatorial
+Ricci flow \eqref{eq:hyperbolic-flow} in the hyperbolic background geometry so that the set $\{r(t) \mid t \in [0,+\infty)\}$ lies in a compact
+region in $\mathbb{R}^N_{>0}$. Then there exists a hyperbolic circle packing $r_{ze}$ in $\mathbb{R}^N_{>0}$ and $r(t)$ converges exponentially
+fast to $r_{ze}$.
+\end{prop}
+
+Obviously, the uniqueness part of Theorem \ref{thm:4.1} is a consequence of the rigidity part of Koebe-Andreev-
+Thurston theorem, i.e. the curvature map $r \mapsto K$ is injective. Finally, we prove the nonexistence part of
+Theorem \ref{thm:4.1}.
+
+\begin{proof}[Proof of nonexistence part of Theorem \ref{thm:4.1}]
+Assume $L_i(\mathcal{T},\Phi) \leq 2\pi$ at each vertex $i \in V$. Hence the average character $L_{av} \leq 2\pi$. By
+Proposition \ref{prop:3.4} we get $\chi(X) \geq 0$. For any hyperbolic triangle $\triangle ijk$, denote $\mathrm{Area}(\triangle ijk)$ by its hyperbolic
+area. Then $\mathrm{Area}(X) = \sum_{\triangle ijk \in F} \mathrm{Area}(\triangle ijk)$. The combinatorial Gauss-Bonnet formula \cite{ChowLuo} in the
+hyperbolic background says:
+\[
+\sum_{i \in V} K_i = 2\pi\chi(X) + \mathrm{Area}(X).
+\]
+Hence there is no circle packing $r$ with curvature zero. By Chow-Luo's result \cite{ChowLuo} that the combinatorial
+Ricci flow \eqref{eq:hyperbolic-flow} converges if and only if there exists a circle packing $r_{ze}$ with curvature zero, we get the
+nonexistence part of Theorem \ref{thm:4.1}.
+\end{proof}
+
+If $L_i(\mathcal{T},\Phi) < 2\pi$ for all vertices, we can even show more, that is, any initial circle packing shrinks to
+a point along the combinatorial Ricci flow \eqref{eq:hyperbolic-flow}. Actually, we have
+
+\begin{theo}\label{thm:7.3}
+If the character $L_i(\mathcal{T},\Phi) < 2\pi$ or $L_i(\mathcal{T},\Phi) \leq 2\pi$ for a constant weight at each vertex,
+then the solution $r(t)$ to the combinatorial Ricci flow \eqref{eq:hyperbolic-flow} satisfies $r(t) \to 0$ when $t$ tends to $+\infty$.
+\end{theo}
+
+\begin{proof}
+We claim that if the character $L_i(\mathcal{T},\Phi) < 2\pi$ or $L_i(\mathcal{T},\Phi) \leq 2\pi$ for a constant weight at each
+vertex, then for any circle packing $r$ there exists a vertex $i$ such that
+\[
+K_i \geq C_0,
+\]
+where $C_0 = C_0(\mathcal{T},\Phi) > 0$ is a sufficiently small positive constant depending on the weighted triangulation
+$(\mathcal{T},\Phi)$.
+
+Let $i$ be the vertex such that $r_i = \max_{j \in V} r_j$. For any hyperbolic triangle $\triangle ijk$ incident to $i$, we have
+$r_i = \max\{r_i, r_j, r_k\}$. Set $\vec{r} = (r_i, r_j, r_k)$, by Lemma \ref{lem:5.6},
+\begin{equation}\label{eq:7.2}
+\theta_i(\vec{r}) \leq \theta_i(r_i\vec{1}).
+\end{equation}
+If the character $L_j(\mathcal{T},\Phi) < 2\pi$ for each vertex $j \in V$, we choose the constant $\epsilon_0$ depends only on the
+data of the weighted triangulation $(\mathcal{T},\Phi)$ on $X$ so that
+\[
+0 < \epsilon_0 < \frac{\min_{j \in V}(2\pi - L_j(\mathcal{T},\Phi))}{\max_{j \in V} d_j}.
+\]
+Set
+\[
+C_0 = \min_{j \in V}(2\pi - L_j(\mathcal{T},\Phi)) - \epsilon_0 \cdot \max_{j \in V} d_j > 0.
+\]
+By Proposition \ref{prop:5.2} and Proposition \ref{prop:5.4}, $\theta_i(t\vec{1})$ is continuously differentiable and
+\[
+\lim_{t \to 0} \theta_i(t\vec{1}) = \arccos \frac{1 + \cos\Phi_{ij} + \cos\Phi_{ik} - \cos\Phi_{jk}}{2\sqrt{1 + \cos\Phi_{ij}}\sqrt{1 + \cos\Phi_{ik}}}.
+\]
+Therefore, for the positive constant $\epsilon_0$, there exists a constant $C > 0$ such that for any $t \leq C$,
+\[
+\theta_i(t\vec{1}) \leq \arccos \frac{1 + \cos\Phi_{ij} + \cos\Phi_{ik} - \cos\Phi_{jk}}{2\sqrt{1 + \cos\Phi_{ij}}\sqrt{1 + \cos\Phi_{ik}}} + \epsilon_0.
+\]
+Choose any $t$ satisfying that $0 < t < \min\{r_i, C\}$. Combining \eqref{eq:7.2} and Proposition \ref{prop:5.2} which states
+that $t \mapsto \theta_i(t\vec{1})$ is strictly decreasing we have
+\begin{equation}\label{eq:7.3}
+\theta_i(\vec{r}) \leq \theta_i(r_i\vec{1}) < \theta_i(t\vec{1}) \leq \arccos \frac{1 + \cos\Phi_{ij} + \cos\Phi_{ik} - \cos\Phi_{jk}}{2\sqrt{1 + \cos\Phi_{ij}}\sqrt{1 + \cos\Phi_{ik}}} + \epsilon_0.
+\end{equation}
+It follows
+\begin{align*}
+K_i(r) &= 2\pi - \sum_{\triangle ijk \in F} \theta_i(\vec{r}) \\
+&\geq 2\pi - \sum_{\triangle ijk \in F} \left(\arccos \frac{1 + \cos\Phi_{ij} + \cos\Phi_{ik} - \cos\Phi_{jk}}{2\sqrt{1 + \cos\Phi_{ij}}\sqrt{1 + \cos\Phi_{ik}}} + \epsilon_0\right) \\
+&= (2\pi - L_i(\mathcal{T},\Phi)) - \epsilon_0 \cdot d_i \\
+&\geq C_0.
+\end{align*}
+On the other hand, if the weight function $\Phi : E \to [0,\pi]$ is a constant, then $L_i(\mathcal{T},\Phi) = \frac{\pi d_i}{3}$, so the
+assumption $L_i(\mathcal{T},\Phi) \leq 2\pi$ is equivalent to $d_i \leq 6$ at each vertex. By Proposition \ref{prop:5.2} and Proposition \ref{prop:5.4}
+we know that the angle function $t \mapsto \theta_i(t\vec{1})$ is continuously differentiable and
+\[
+\lim_{t \to 0} \theta_i(t\vec{1}) = \frac{\pi}{3}, \quad \lim_{t \to +\infty} \theta_i(t\vec{1}) = 0.
+\]
+Suppose that $C_0 > 0$ is any fixed sufficiently small positive number and set $\delta_0 = \frac{C_0}{6}$, then by the
+intermediate value theorem and above limits, there exists $t_0$, $0 < t_0 < r_i$ such that
+\[
+\theta_i(t_0\vec{1}) = \frac{\pi}{3} - \delta_0 > 0.
+\]
+Note that $t \mapsto \theta_i(t\vec{1})$ is strictly decreasing, by \eqref{eq:7.2} we have
+\[
+\theta_i(\vec{r}) \leq \theta_i(r_i\vec{1}) < \theta_i(t_0\vec{1}) = \frac{\pi}{3} - \delta_0.
+\]
+Since $d_i \leq 6$,
+\[
+K_i = 2\pi - \sum_{\triangle ijk \in F} \theta_i(\vec{r}) \geq 2\pi - 6\left(\frac{\pi}{3} - \delta_0\right) = C_0.
+\]
+This completes the proof of the claim. Let $r(t)$ be a solution to the combinatorial Ricci flow \eqref{eq:hyperbolic-flow}.
+Set $r_M(t) := \max_{i \in V} r_i(t)$. Then for a.e. $t \in [0,+\infty)$, there exists $i \in V$ depending on $t$, such that
+$r_M(t) = r_i(t)$ and $r_M'(t) = r_i'(t)$. By the claim above, for the circle packing $r(t)$, we have $K_i(r(t)) \geq C_0$,
+where $C_0 > 0$ is a sufficiently small positive constant depending on $(\mathcal{T},\Phi)$. By the combinatorial Ricci
+flow \eqref{eq:hyperbolic-flow}, for a.e. $t \in [0,+\infty)$
+\[
+r_M'(t) = r_i'(t) \leq -C_0 \sinh(r_i(t)) = -C_0 \sinh(r_M(t)),
+\]
+which is equivalent to $(\ln \tanh \frac{r_M(t)}{2})' \leq -C_0$. Integrate both sides from $0$ to $t$, $\tanh \frac{r_M(t)}{2} \leq
+\tanh \frac{r_M(0)}{2} e^{-C_0 t}$. Hence $r(t) \to 0$ as $t \to \infty$. This completes the proof of Theorem \ref{thm:7.3}.
+\end{proof}
+
+\section{The prescribed flow}\label{sec:prescribed}
+
+In this final section, we derive Theorem \ref{thm:2.7}. We call a given $\bar{K} = (\bar{K}_1, \cdots, \bar{K}_N)$ a prescribed combinatorial
+Gaussian curvature. We want to know if there is a circle packing $\bar{r}$ with curvature $K(\bar{r}) = \bar{K}$. This is
+called a prescribed circle packing problem. By Thurston's rigidity theorem, the prescribed circle packing
+$\bar{r}$ is unique if it exists. By this terminology, a hyperbolic circle packing is just a packing with prescribed
+curvature zero.
+
+Obviously, if the prescribed circle packing problem has a solution, then the prescribed curvature $\bar{K}$
+lies in $K(\mathbb{R}^N_{>0})$, which is the image set of the curvature map $K$ and vice versa. It has been proved \cite{ChowLuo}
+that the prescribed circle packing problem has a solution, i.e. there is a circle packing $\bar{r}$ with curvature
+$K(\bar{r}) = \bar{K}$, if and only if the following prescribed combinatorial Ricci flow converges.
+\begin{equation}\label{eq:prescribed-flow}
+\frac{dr_i}{dt} = (\bar{K}_i - K_i) \sinh r_i.
+\end{equation}
+From the famous Koebe-Andreev-Thurston theorem, the image set $K(\mathbb{R}^N_{>0})$ of the curvature map
+$r \mapsto K$ is a bounded convex polytope. Using the data of $(\mathcal{T},\Phi)$ on $X$, it is described by a set of linear
+inequalities:
+\begin{equation}\label{eq:image-set}
+K(\mathbb{R}^N_{>0}) = \left\{x \in \mathbb{R}^N : \sum_{i \in I} x_i > -\sum_{(e,v) \in \mathrm{Lk}(I)} (\pi - \Phi(e)) + 2\pi\chi(F_I)\right\},
+\end{equation}
+where $I$ is taken over all proper subsets of $V$, $F_I$ is the subcomplex whose vertices are in $I$, and $\mathrm{Lk}(I)$ is
+the set of pairs $(e,v)$ of an edge $e$ and a vertex $v$ satisfying the following: (i) The end points of $e$ are not
+in $I$; (ii) $v$ is in $I$; (iii) $e$ and $v$ form a triangle.
+
+\eqref{eq:image-set} describes the image set of $K$ completely. Despite its accuracy, it is global and not easy to verify.
+In this section, we will investigate the prescribed flow \eqref{eq:prescribed-flow} further, and prove the following
+
+\begin{theo}\label{thm:8.1}
+Consider a given weighted triangulation $(\mathcal{T},\Phi)$ on a closed surface $X$. If
+\[
+2\pi - L_i(\mathcal{T},\Phi) < \bar{K}_i < 2\pi
+\]
+at each vertex $i \in V$, then the solution to the prescribed flow \eqref{eq:prescribed-flow} converges exponentially fast to a
+packing $\bar{r}$ with curvature $K(\bar{r}) = \bar{K}$. Thus $\bar{r}$ is the solution of the prescribed circle packing problem.
+
+On the other hand, if $\bar{K}_i \leq 2\pi - L_i(\mathcal{T},\Phi)$ at each vertex $i \in V$, then the prescribed flow \eqref{eq:prescribed-flow} can not
+converge. Hence the prescribed circle packing problem had no solutions and equivalently, there is no circle
+packing $\bar{r}$ with curvature $K(\bar{r}) = \bar{K}$.
+\end{theo}
+
+Combining Theorem \ref{thm:8.1} and our ``degree-type'' criteria, i.e. Corollary \ref{cor:3.5}, \ref{cor:3.7} and \ref{cor:3.8}, we have some
+quite interesting results for the image set.
+
+\begin{cor}\label{cor:8.3}
+Assume the weight function $\Phi: E \to [0,\pi/2]$ is a constant, then
+\[
+\prod_{i \in V}\left(2\pi - \frac{d_i \pi}{3}, 2\pi\right) \subset K(\mathbb{R}^N_{>0})
+\]
+and
+\[
+\prod_{i \in V}\left(-\infty, 2\pi - \frac{d_i \pi}{3}\right] \cap K(\mathbb{R}^N_{>0}) = \emptyset.
+\]
+\end{cor}
+
+\begin{cor}\label{cor:8.4}
+Assume the weight $\Phi \in [0,\pi/2]$ and $d_i \geq 9$ for each vertex $i \in V$, then
+\[
+[-0.07\pi, 2\pi)^N \subset \left(2\pi - 9\arccos\frac{3}{4}, 2\pi\right)^N \subset K(\mathbb{R}^N_{>0}).
+\]
+\end{cor}
+
+\begin{cor}\label{cor:8.5}
+Assume $d_i \geq 7$ for each vertex $i \in V$. If further assume the weight function $\Phi :
+E \to [0,\pi/2]$ satisfies: $\Phi$ is a constant, or $\Phi \in [0, 0.33\pi]$, or $\Phi \in [0.4\pi, \pi/2]$, or more generally $\Phi \in
+[\arccos\eta, \arccos\xi] \subset [0,\pi/2]$, where $0 \leq \xi \leq \eta \leq 1$ are arbitrary chosen so that $\eta < (2\cos\frac{2\pi}{7} - 1 + \xi)/(2 -
+2\cos\frac{2\pi}{7})$. Then $[0, 2\pi)^N \subset K(\mathbb{R}^N_{>0})$.
+\end{cor}
+
+\section*{Acknowledgements}
+
+We are very grateful to the referees for carefully reading the original manuscript and
+pointing out some typos. H. Ge is supported by National Natural Science Foundation of China (Grant No.
+11871094 and Grant No. 12122119). A. Lin is supported by National Natural Science Foundation of China
+(Grant No. 12171480), Hunan Provincial Natural Science Foundation of China (Grant No. 2020JJ4658 and
+Grant No. 2022JJ10059) and Scientific Research Program Funds of NUDT (Grant No. 22-ZZCX-016). The
+second author would like to thank professor K. Feng and Z. Zhou for communications on related topics. Both
+authors would like to thank professor L. Shen for many useful conversations.
+
+\begin{thebibliography}{99}
+
+\bibitem{Andreev1} Andreev E. On convex polyhedra in Loba\v{c}evski\u{i} spaces (Russian). Mat Sb (123), 1970, 81: 445--478.
+
+\bibitem{Andreev2} Andreev E. On convex polyhedra of finite volume in Loba\v{c}evski\u{i} spaces (Russian). Mat Sb (125), 1970, 83: 256--260.
+
+\bibitem{BaoBonahon} Bao X, Bonahon F. Hyperideal polyhedra in hyperbolic 3-space. Bull Soc Math France, 2002, 130: 457--491.
+
+\bibitem{BobenkoHoffmannSpringborn} Bobenko A, Hoffmann T, Springborn B. Minimal surfaces from circle patterns: geometry from combinatorics. Ann of Math, 2006, 164: 231--264.
+
+\bibitem{BobenkoSpringborn} Bobenko A, Springborn B. Variational principles for circle patterns and Koebe's theorem. Trans Amer Math Soc, 2004, 356: 659--689.
+
+\bibitem{Bowditch} Bowditch B. Singular Euclidean structures on surfaces. J Lond Math Soc, 1991, 44: 553--565.
+
+\bibitem{BowersStephenson1} Bowers P, Stephenson K. The set of circle packing points in the Teichm\"uller space of a surface of finite conformal type is dense. Math Proc Cambridge Philos Soc (3), 1992, 111: 487--513.
+
+\bibitem{DaiGuLuo} Dai J, Gu X, Luo F. Variational principles for discrete surfaces. Beijing: Higher Education Press, 2008.
+
+\bibitem{ChowLuo} Chow B, Luo F. Combinatorial Ricci flows on surfaces. J Differential Geom (1), 2003, 63: 97--129.
+
+\bibitem{Colin} de Verdi\`ere Y C. Un principe variationnel pour les empilements de cercles. Invent Math (3), 1991, 104: 655--669.
+
+\bibitem{EdmondsEwingKulkarni} Edmonds A, Ewing J, Kulkarni R. Regular tessellations of surfaces and $(p,q,2)$-triangle groups. Ann of Math (1), 1982, 116: 113--132.
+
+\bibitem{FengGeHua} Feng K, Ge H, Hua B. Combinatorial Ricci flows and the hyperbolization of a class of compact 3-manifolds. Geom Topol (3), 2022, 26: 1349--1384.
+
+\bibitem{GeHua} Ge H, Hua B. 3-dimensional combinatorial Yamabe flow in hyperbolic background geometry. Trans Amer Math Soc (7), 2020, 373: 5111--5140.
+
+\bibitem{GeHuaZhou1} Ge H, Hua B, Zhou Z. Circle patterns on surfaces of finite topological type. Amer J Math (5), 2021, 143: 1397--1430.
+
+\bibitem{GeHuaZhou2} Ge H, Hua B, Zhou Z. Combinatorial Ricci flows for ideal circle patterns. Adv Math, 2021, 383: 107698.
+
+\bibitem{GeJiang1} Ge H, Jiang W. On the deformation of inversive distance circle packings II. J Funct Anal (9), 2017, 272: 3573--3595.
+
+\bibitem{GeJiangShen} Ge H, Jiang W, Shen L. On the deformation of ball packings. Adv Math, 2022, 398: 108192.
+
+\bibitem{HeLiu1} He Z, Liu J. On the Teichm\"uller theory of circle patterns. Trans Amer Math Soc (12), 2013, 365: 6517--6541.
+
+\bibitem{HeSchramm1} He Z, Schramm O. Fixed points, Koebe uniformization and circle packings. Ann of Math (2), 1993, 137: 369--406.
+
+\bibitem{HeSchramm2} He Z, Schramm O. Rigidity of circle domains whose boundary has $\sigma$-finite linear measure. Invent Math (2), 1994, 115: 297--310.
+
+\bibitem{HeSchramm3} He Z, Schramm O. Koebe uniformization for ``almost circle domains''. Amer J Math (3), 1995, 117: 653--667.
+
+\bibitem{HuangLiu} Huang X, Liu J. Characterizations of circle patterns and finite convex polyhedra in hyperbolic 3-space. Math Ann, 2017, 368: 213--231.
+
+\bibitem{Koebe} Koebe P. Kontaktprobleme der konformen Abbildung. Ber S\"achs Akad Wiss Leipzig, Math-Phys Kl, 1936, 88: 141--164.
+
+\bibitem{Leibon} Leibon G. Characterizing the Delaunay decompositions of compact hyperbolic surfaces. Geom Topol, 2002, 6: 361--391.
+
+\bibitem{LiuZhou} Liu J, Zhou Z. How many cages midscribe an egg. Invent Math, 2016, 203: 655--673.
+
+\bibitem{Luo} Luo F. A combinatorial curvature flow for compact 3-manifolds with boundary. Electron Res Announc Amer Math Soc, 2005, 11: 12--20.
+
+\bibitem{MardenRodin} Marden A, Rodin B. On Thurston's formulation and proof of Andreev's theorem. In: Computational methods and function theory (Valparaiso, 1989). Lect Notes in Math, vol. 1435. Berlin: Springer, 1990, 103--115.
+
+\bibitem{Martelli} Martelli B. An introduction to geometric topology. \url{http://people.dm.unipi.it/martelli/geometric_topology.html}, 2016.
+
+\bibitem{Rivin1} Rivin I. Euclidean structures on simplicial surfaces and hyperbolic volume. Ann of Math, 1994, 139: 553--580.
+
+\bibitem{Rivin2} Rivin I. A characterization of ideal polyhedra in hyperbolic 3-space. Ann of Math, 1996, 143: 51--70.
+
+\bibitem{RivinHodgson} Rivin I, Hodgson C. A characterization of compact convex polyhedra in hyperbolic 3-space. Invent math, 1993, 111: 77--111.
+
+\bibitem{RodinSullivan} Rodin B, Sullivan D. The convergence of circle packings to the Riemann mapping. J Differential Geom, 1987, 26: 349--360.
+
+\bibitem{Rousset} Rousset M. Sur la rigidit\'e de poly\`edres hyperboliques en dimension 3: cas de volume fini, cas hyperid\'eal, cas fuchsien. Bull Soc Math France (2), 2004, 132: 233--261.
+
+\bibitem{Schlenker} Schlenker J. Hyperideal circle patterns. Math Res Lett (1), 2005, 12: 85--102.
+
+\bibitem{Schramm1} Schramm O. How to cage an egg. Invent Math, 1992, 107: 543--560.
+
+\bibitem{Stephenson} Stephenson K. Introduction to circle packing. The theory of discrete analytic functions. Cambridge: Cambridge University Press, 2005.
+
+\bibitem{Thurston} Thurston W. Geometry and topology of 3-manifolds. Princeton Lecture Notes, 1976.
+
+\bibitem{Thurston2} Thurston W. The finite Riemann mapping theorem. International Symposium at Purdue University on the occasion of the proof of the Bieberbach Conjecture, 1985.
+
+\bibitem{Zhou1} Zhou Z. Circle patterns with obtuse exterior intersection angles. arXiv:1703.01768v3, 2017.
+
+\bibitem{Zhou2} Zhou Z. Producing circle patterns via configurations. arxiv:2010.13076v9, 2021.
+
+\end{thebibliography}
+
+\end{document}

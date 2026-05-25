@@ -1,0 +1,52 @@
+name: Compile blueprint
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  build_project:
+    runs-on: ubuntu-latest
+    name: Build project and blueprint
+    steps:
+      - name: Cleanup to free disk space
+        uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be
+        with:
+          tool-cache: false
+          android: true
+          dotnet: false
+          haskell: false
+          large-packages: false
+          docker-images: false
+          swap-storage: false
+
+      - name: Checkout project
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
+        with:
+          fetch-depth: 0
+
+      - name: Build Lean project
+        uses: leanprover/lean-action@6fe4ae6a449c9758f51250ee249ebbc7ec37ee48
+        with:
+          build: true
+
+      - name: Compile blueprint and documentation
+        if: github.event_name != 'pull_request'
+        uses: leanprover-community/docgen-action@7b5b9a1822650bd45aaeb4182d94bceba2030f89
+        with:
+          blueprint: true
+          homepage: home_page

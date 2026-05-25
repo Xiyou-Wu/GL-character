@@ -1,2 +1,0 @@
-import MathTheoremProject.GeLinImprovement.RealInequalities
-import MathTheoremProject.GeLinImprovement.CharacterCriterion

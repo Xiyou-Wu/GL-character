@@ -1,27 +1,26 @@
 # GL-character
 
-Lean 4 formalization project for Ge--Lin character related statements.
+Lean 4 formalization and blueprint for average character criteria for Thurston circle packings.
 
-## Local development
-
-Install the Lean 4 VS Code extension, open this repository as the workspace root, and run:
+## Local build
 
 ```powershell
 lake exe cache get
 lake build
 ```
 
-The Lean server reads `lean-toolchain` and `lakefile.toml` from the repository root.
+The blueprint source is in `blueprint/src`.
 
-## Documentation
+## Blueprint
 
-HTML documentation is generated with `doc-gen4`:
+GitHub Actions builds and publishes:
+
+- Web blueprint: `https://xiyou-wu.github.io/GL-character/blueprint/`
+- PDF blueprint: `https://xiyou-wu.github.io/GL-character/blueprint.pdf`
+- API docs: `https://xiyou-wu.github.io/GL-character/docs/`
+
+For local blueprint builds, install `leanblueprint` and run:
 
 ```powershell
-cd docbuild
-$env:MATHLIB_NO_CACHE_ON_UPDATE='1'
-lake update
-lake build GLCharacter:docs
+leanblueprint all
 ```
-
-The generated site is under `docbuild/.lake/build/doc/`. GitHub Pages is deployed by `.github/workflows/docs.yml`.

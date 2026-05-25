@@ -1,7 +1,7 @@
-name = "GLCharacter"
+name = "probability_character"
 version = "0.1.0"
-keywords = ["math", "Lean", "formalization"]
-defaultTargets = ["GLCharacter", "MathTheoremProject", "ProbabilityCharacter"]
+keywords = ["math"]
+defaultTargets = ["ProbabilityCharacter"]
 
 [leanOptions]
 pp.unicode.fun = true
@@ -14,11 +14,10 @@ name = "mathlib"
 scope = "leanprover-community"
 rev = "v4.29.1"
 
-[[lean_lib]]
-name = "GLCharacter"
-
-[[lean_lib]]
-name = "MathTheoremProject"
+[[require]]
+name = "checkdecls"
+git = "https://github.com/PatrickMassot/checkdecls.git"
 
 [[lean_lib]]
 name = "ProbabilityCharacter"
+srcDir = "blueprint"

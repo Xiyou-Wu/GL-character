@@ -1,6 +1,0 @@
-import ProbabilityCharacter.Basic
-import ProbabilityCharacter.Combinatorics
-import ProbabilityCharacter.AlgebraicCorollaries
-import ProbabilityCharacter.LowerAverage
-import ProbabilityCharacter.DegreeCriteria
-import ProbabilityCharacter.ComparisonAngle

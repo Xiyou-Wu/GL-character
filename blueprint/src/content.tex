@@ -1,0 +1,653 @@
+﻿\section{Statement of the improvement}
+
+Ge--Lin prove hyperbolic circle packing existence from the pointwise
+condition
+\[
+  L_i(\T,\Phiw)>2\pi \qquad (i\in V).
+\]
+The pointwise condition can be replaced by a corrected average condition
+over vertex subsets.  This keeps Chow--Luo's hyperbolic combinatorial Ricci
+flow as the main tool.  The correction term below is exactly the boundary
+term appearing in Chow--Luo's curvature image inequalities, rewritten in
+the language of Ge--Lin's character.
+
+\section{Characters of subsets}
+
+Let $(X,\T,\Phiw)$ be a weighted triangulated closed surface with
+$\Phiw:E\to[0,\pi/2]$.  For a face $f=ijk$, define
+\[
+  \gamma_i^f
+  =
+  \arccos
+  \frac{1+\cos\Phiw_{ij}+\cos\Phiw_{ik}-\cos\Phiw_{jk}}
+       {2\sqrt{1+\cos\Phiw_{ij}}\sqrt{1+\cos\Phiw_{ik}}}.
+\]
+Thus
+\[
+  L_i(\T,\Phiw)=\sum_{f\ni i}\gamma_i^f .
+\]
+These numbers are not the angles of the hyperbolic triangles appearing
+along the Ricci flow.  They are the limiting comparison angles in
+Ge--Lin's definition of the character, equivalently the angles of the
+Euclidean equal-radius comparison triangle.  We record this as a lemma to
+avoid ambiguity.
+
+\begin{lemma}[comparison-angle identity]\label{lem:comparison-angle}
+\lean{ProbabilityCharacter.comparison_angle_sum_eq_pi}\leanok
+For every face $f=ijk$,
+\[
+  \gamma_i^f+\gamma_j^f+\gamma_k^f=\pi .
+\]
+\end{lemma}
+
+\begin{proof}
+Consider the Euclidean comparison triangle with edge lengths
+\[
+  \ell_{ij}=\sqrt{2+2\cos\Phiw_{ij}},\quad
+  \ell_{ik}=\sqrt{2+2\cos\Phiw_{ik}},\quad
+  \ell_{jk}=\sqrt{2+2\cos\Phiw_{jk}}.
+\]
+These are the Euclidean circle-packing edge lengths with all three radii
+equal to one.  The triangle inequalities for these lengths are exactly the
+Euclidean-background version of Thurston's triangle-inequality lemma used
+by Ge--Lin.
+
+Let $\alpha_i$ be the Euclidean angle opposite the edge $\ell_{jk}$.
+By the Euclidean cosine law,
+\[
+ \cos \alpha_i
+ =
+ \frac{\ell_{ij}^2+\ell_{ik}^2-\ell_{jk}^2}{2\ell_{ij}\ell_{ik}}
+ =
+ \frac{1+\cos\Phiw_{ij}+\cos\Phiw_{ik}-\cos\Phiw_{jk}}
+      {2\sqrt{1+\cos\Phiw_{ij}}\sqrt{1+\cos\Phiw_{ik}}}.
+\]
+Since $0<\alpha_i<\pi$, this gives $\alpha_i=\gamma_i^f$.  Similarly
+$\alpha_j=\gamma_j^f$ and $\alpha_k=\gamma_k^f$.  Hence the sum is the
+Euclidean triangle angle sum $\pi$.
+\end{proof}
+
+For $I\subseteq V$, let $\mathcal F_m(I)$ denote the set of faces having
+exactly $m$ vertices in $I$.  Put
+\[
+  L_\Phi(I)=\sum_{i\in I}L_i .
+\]
+If $f\in\mathcal F_2(I)$, let $\gamma_{\mathrm{out}}^f$ be the comparison
+angle at the unique vertex of $f$ outside $I$.  If $f\in\mathcal F_1(I)$,
+let $v_f$ be the unique vertex of $f$ in $I$, and let $e_f$ be the opposite
+edge of $f$, whose two endpoints are outside $I$.
+
+\begin{definition}[finite combinatorial model]\label{def:finite-combinatorial-model}
+\lean{
+ProbabilityCharacter.Combinatorics.TriFace,
+ProbabilityCharacter.Combinatorics.TriFace.internalVertexPairs,
+ProbabilityCharacter.Combinatorics.TriFace.card_internalVertexPairs,
+ProbabilityCharacter.Combinatorics.TriFace.choose_two_countIn_eq_piecewise,
+ProbabilityCharacter.Combinatorics.TriEdge,
+ProbabilityCharacter.Combinatorics.TriEdge.ext,
+ProbabilityCharacter.Combinatorics.TriEdge.vertsEmbedding,
+ProbabilityCharacter.Combinatorics.TriangulationModel,
+ProbabilityCharacter.Combinatorics.TriangulationModel.F1,
+ProbabilityCharacter.Combinatorics.TriangulationModel.F2,
+ProbabilityCharacter.Combinatorics.TriangulationModel.F3,
+ProbabilityCharacter.Combinatorics.TriangulationModel.internalEdges,
+ProbabilityCharacter.Combinatorics.TriangulationModel.internalEdgesInFace,
+ProbabilityCharacter.Combinatorics.TriangulationModel.internalEdgeVertexSetsInFace,
+ProbabilityCharacter.Combinatorics.TriangulationModel.card_internalEdgeVertexSetsInFace,
+ProbabilityCharacter.Combinatorics.TriangulationModel.internalEdgesInFace_card_eq_choose_of_vertexSet_image,
+ProbabilityCharacter.Combinatorics.TriangulationModel.edgeFaceIncidences,
+ProbabilityCharacter.Combinatorics.TriangulationModel.edgeSideIncidenceCount,
+ProbabilityCharacter.Combinatorics.TriangulationModel.faceSideIncidenceCount,
+ProbabilityCharacter.Combinatorics.TriangulationModel.edgeFaceIncidences_card_eq_edgeSideIncidenceCount,
+ProbabilityCharacter.Combinatorics.TriangulationModel.edgeFaceIncidences_card_eq_faceSideIncidenceCount,
+ProbabilityCharacter.Combinatorics.TriangulationModel.edgeSideIncidenceCount_eq_faceSideIncidenceCount,
+ProbabilityCharacter.Combinatorics.TriangulationModel.edgeSideIncidenceCount_eq_two_mul,
+ProbabilityCharacter.Combinatorics.TriangulationModel.faceSideIncidenceCount_eq_three_mul_F3_add_F2_of_face_contribution,
+ProbabilityCharacter.Combinatorics.TriangulationModel.faceSideIncidenceCount_eq_three_mul_F3_add_F2_of_choose_contribution,
+ProbabilityCharacter.Combinatorics.TriangulationModel.subsetEdgeCountIdentity_of_internalEdgeVertexSet_images,
+ProbabilityCharacter.Combinatorics.TriangulationModel.subsetEdgeCountIdentity_of_choose_face_contribution,
+ProbabilityCharacter.Combinatorics.TriangulationModel.subsetEdgeCountIdentity_of_local_face_contribution,
+ProbabilityCharacter.Combinatorics.TriangulationModel.subsetEdgeCountIdentity_of_face_side_count,
+ProbabilityCharacter.Combinatorics.TriangulationModel.subsetEdgeCountIdentity_of_incidence_counts,
+ProbabilityCharacter.Combinatorics.TriangulationModel.subsetEdgeCountIdentity,
+ProbabilityCharacter.Combinatorics.TriangulationModel.subsetEulerCount}\leanok
+This is the finite bookkeeping model used in the obstruction identity.  It
+separates the purely combinatorial part of the proof from the geometric input
+about closed triangulated surfaces.
+
+In Lean, a face is represented by a three-element finite set of vertices and
+an edge by a two-element finite set.  A finite triangulation model consists of
+finite sets of vertices, edges, and triangular faces.  For a vertex subset
+\(I\), the model defines:
+\[
+  \mathcal F_1(I),\quad \mathcal F_2(I),\quad \mathcal F_3(I),\quad
+  E_I,\quad |I|-|E_I|+|\mathcal F_3(I)|.
+\]
+Here \(\mathcal F_m(I)\) is the set of faces with exactly \(m\) vertices in
+\(I\), and \(E_I\) is the set of edges whose endpoints both lie in \(I\).
+
+The formalized counting argument has two parts.  First, Lean double-counts
+edge--face incidences, giving an edge-side count and a face-side count.
+Second, Lean reduces the local contribution of a single face to the number
+of two-element subsets of \(f\cap I\).  This local number is \(3\), \(1\), or
+\(0\), according as \(f\in\mathcal F_3(I)\), \(f\in\mathcal F_2(I)\), or
+otherwise.  Thus the model proves the combinatorial identity
+\[
+  2|E_I|=3|\mathcal F_3(I)|+|\mathcal F_2(I)|
+\]
+once the usual closed-surface input is supplied: every internal edge is
+incident to exactly two faces.
+\end{definition}
+
+\begin{definition}[boundary-corrected average character]\label{def:boundary-corrected-average}
+\lean{ProbabilityCharacter.correctedAverage}\leanok
+For $\emptyset\ne I\subsetneq V$, define
+\[
+  \Delta_\Phi(I)
+  =
+  \sum_{f\in\mathcal F_2(I)}\gamma_{\mathrm{out}}^f
+  +
+  \sum_{f\in\mathcal F_1(I)}
+    \bigl(\pi-\Phiw(e_f)-\gamma_{v_f}^f\bigr),
+\]
+and
+\[
+  \ac_\Phi(I)=\frac{L_\Phi(I)+\Delta_\Phi(I)}{|I|}.
+\]
+For $I=V$, set $\Delta_\Phi(V)=0$ and
+\[
+  \ac_\Phi(V)=\frac{L_\Phi(V)}{|V|}.
+\]
+\end{definition}
+
+\begin{lemma}[non-negativity of the correction]\label{lem:nonneg-correction}
+\uses{def:boundary-corrected-average,lem:comparison-angle}
+\lean{ProbabilityCharacter.DeltaPhi_nonneg_of_valid_angles}\leanok
+For every nonempty $I\subseteq V$,
+\[
+  \Delta_\Phi(I)\ge 0.
+\]
+\end{lemma}
+
+\begin{proof}
+The summands $\gamma_{\mathrm{out}}^f$ are non-negative.  It remains to
+check a summand of the second type.  Let $f=ijk$ and suppose $i=v_f$ while
+$e_f=jk$.  Since $\Phiw:E\to[0,\pi/2]$, the formula for $\gamma_i^f$ gives
+\[
+ \cos \gamma_i^f
+ =
+ \frac{1+\cos\Phiw_{ij}+\cos\Phiw_{ik}-\cos\Phiw_{jk}}
+      {2\sqrt{1+\cos\Phiw_{ij}}\sqrt{1+\cos\Phiw_{ik}}}
+ \ge 0,
+\]
+because $1-\cos\Phiw_{jk}\ge0$ and the other cosine terms are
+non-negative.  Hence $\gamma_i^f\le\pi/2$.  Also
+$\pi-\Phiw_{jk}\ge\pi/2$.  Therefore
+\[
+  \pi-\Phiw(e_f)-\gamma_{v_f}^f
+  =
+  \pi-\Phiw_{jk}-\gamma_i^f
+  \ge 0.
+\]
+\end{proof}
+
+\section{The exact obstruction identity}
+
+For $\emptyset\ne I\subsetneq V$, let $F_I$ be the full subcomplex of
+$\T$ spanned by $I$.  Following Chow--Luo, define
+\[
+  B_\Phi(I)
+  =
+  \sum_{(e,v)\in\Lk(I)}(\pi-\Phiw(e))-2\pi\chi(F_I),
+\]
+where $\Lk(I)$ is the set of pairs $(e,v)$ such that the endpoints of $e$
+are not in $I$, $v\in I$, and $e$ together with $v$ forms a triangle of
+$\T$.
+
+\begin{lemma}[obstruction equals corrected surplus]\label{lem:obstruction-corrected-surplus}
+\uses{def:finite-combinatorial-model,def:boundary-corrected-average}
+\lean{ProbabilityCharacter.obstruction_eq_card_mul_surplus, ProbabilityCharacter.Combinatorics.obstruction_identity_from_count_data}\leanok
+For every nonempty proper subset $I\subsetneq V$,
+\[
+  B_\Phi(I)=L_\Phi(I)-2\pi |I|+\Delta_\Phi(I)
+  =
+  |I|\bigl(\ac_\Phi(I)-2\pi\bigr).
+\]
+\end{lemma}
+
+\begin{proof}
+Let $E_I$ be the set of edges whose endpoints both lie in $I$.  Let
+$F_3=\mathcal F_3(I)$ and $F_2=\mathcal F_2(I)$.  Since $X$ is closed,
+every edge of $E_I$ is incident to two faces.  Counting incidences between
+edges of $E_I$ and adjacent faces gives
+\[
+  2|E_I|=3|F_3|+|F_2|.
+\]
+The subset character is
+\[
+  L_\Phi(I)
+  =
+  \pi|F_3|
+  +\sum_{f\in\mathcal F_2(I)}(\pi-\gamma_{\mathrm{out}}^f)
+  +\sum_{f\in\mathcal F_1(I)}\gamma_{v_f}^f .
+\]
+After adding $\Delta_\Phi(I)$, the terms on $\mathcal F_2(I)$ and
+$\mathcal F_1(I)$ simplify to
+\[
+  L_\Phi(I)+\Delta_\Phi(I)
+  =
+  \pi|F_3|+\pi|F_2|
+  +\sum_{f\in\mathcal F_1(I)}(\pi-\Phiw(e_f)).
+\]
+Using $2|E_I|=3|F_3|+|F_2|$, this becomes
+\[
+  L_\Phi(I)+\Delta_\Phi(I)
+  =
+  2\pi |E_I|-2\pi |F_3|
+  +\sum_{f\in\mathcal F_1(I)}(\pi-\Phiw(e_f)).
+\]
+Since
+\[
+  \chi(F_I)=|I|-|E_I|+|F_3|,
+\]
+we get
+\[
+  L_\Phi(I)-2\pi |I|+\Delta_\Phi(I)
+  =
+  \sum_{f\in\mathcal F_1(I)}(\pi-\Phiw(e_f))-2\pi\chi(F_I).
+\]
+Each face in $\mathcal F_1(I)$ contributes exactly one pair $(e_f,v_f)$ to
+$\Lk(I)$, and every pair in $\Lk(I)$ arises this way.  Hence the last
+expression is $B_\Phi(I)$.
+\end{proof}
+
+\section{Average criterion}
+
+\begin{theorem}[Chow--Luo, zero-curvature case]\label{thm:chow-luo}
+For a weighted triangulated closed surface $(X,\T,\Phiw)$ in the hyperbolic
+background, there is a radius vector $r_{ze}\in\R_{>0}^V$ with
+$K(r_{ze})=0$ if and only if $\chi(X)<0$ and
+\[
+  B_\Phi(I)>0
+  \qquad
+  (\emptyset\ne I\subsetneq V).
+\]
+In this case the hyperbolic combinatorial Ricci flow
+\[
+  \frac{dr_i}{dt}=-K_i\sinh r_i
+\]
+exists for all time and converges exponentially fast, from every initial
+radius vector in $\R_{>0}^V$, to $r_{ze}$.  The vector $r_{ze}$ is unique.
+\end{theorem}
+
+\begin{proof}
+We only derive this form from Chow--Luo's results.  Let
+\[
+  K:\R_{>0}^V\longrightarrow \R^V,\qquad r\longmapsto K(r)
+\]
+be the hyperbolic-background curvature map.  Chow--Luo's description of
+the curvature image says that a vector $x\in\R^V$ lies in $K(\R_{>0}^V)$
+if and only if, for every nonempty proper subset $I\subsetneq V$,
+\[
+  \sum_{i\in I}x_i
+  >
+  -\sum_{(e,v)\in\Lk(I)}(\pi-\Phiw(e))+2\pi\chi(F_I).
+\]
+Applying this to $x=0$ gives exactly
+\[
+  \sum_{(e,v)\in\Lk(I)}(\pi-\Phiw(e))-2\pi\chi(F_I)>0,
+\]
+that is, $B_\Phi(I)>0$, for every nonempty proper $I$.
+
+The additional full-surface condition is Gauss--Bonnet.  In the hyperbolic
+background,
+\[
+  \sum_{i\in V}K_i(r)=2\pi\chi(X)+\operatorname{Area}(X,r).
+\]
+Thus if $K(r)=0$, then
+\[
+  \operatorname{Area}(X,r)=-2\pi\chi(X)>0,
+\]
+so $\chi(X)<0$.  Conversely, if $\chi(X)<0$ and all the proper-subset
+inequalities $B_\Phi(I)>0$ hold, then the curvature image theorem applied
+to $x=0$ gives a radius vector $r_{ze}\in\R_{>0}^V$ with $K(r_{ze})=0$.
+
+Finally, Chow--Luo's convergence theorem for the hyperbolic combinatorial
+Ricci flow states that, when such a zero-curvature hyperbolic circle
+packing exists, the flow
+\[
+  \frac{dr_i}{dt}=-K_i\sinh r_i
+\]
+exists for all time and converges exponentially fast to it from every
+initial radius vector in $\R_{>0}^V$.  Uniqueness follows from the
+rigidity/injectivity theorem for the hyperbolic-background curvature map.
+\end{proof}
+
+\begin{theorem}[average character criterion]\label{thm:average-character-criterion}
+\uses{thm:chow-luo,lem:obstruction-corrected-surplus,def:boundary-corrected-average}
+\lean{ProbabilityCharacter.average_character_criterion_skeleton, ProbabilityCharacter.obstruction_pos_of_correctedAverage_gt, ProbabilityCharacter.eulerChar_neg_of_average_formula}
+\leanok
+Let $(X,\T,\Phiw)$ be a weighted triangulated closed surface with
+$\Phiw:E\to[0,\pi/2]$.  Suppose that
+\[
+  \ac_\Phi(I)>2\pi
+  \qquad
+  \text{for every nonempty } I\subseteq V .
+\]
+Then $\chi(X)<0$, and the hyperbolic combinatorial Ricci flow
+\[
+  \frac{dr_i}{dt}=-K_i\sinh r_i
+\]
+exists for all time and converges exponentially fast, from every initial
+radius vector $r(0)\in\R_{>0}^{V}$, to the unique zero-curvature
+hyperbolic circle packing based on $(X,\T,\Phiw)$.
+\end{theorem}
+
+\begin{proof}
+Taking $I=V$ gives
+\[
+  \frac{1}{|V|}\sum_{i\in V}L_i>2\pi.
+\]
+By Ge--Lin's average character formula,
+\[
+  \frac{1}{|V|}\sum_{i\in V}L_i
+  =
+  2\pi\left(1-\frac{\chi(X)}{|V|}\right),
+\]
+and therefore $\chi(X)<0$.
+
+For each nonempty proper $I\subsetneq V$, the obstruction identity gives
+\[
+  B_\Phi(I)=|I|\bigl(\ac_\Phi(I)-2\pi\bigr)>0.
+\]
+Thus the zero curvature vector satisfies all Chow--Luo image inequalities.
+The conclusion follows from Theorem~\ref{thm:chow-luo}.
+\end{proof}
+
+\begin{corollary}[Ge--Lin's pointwise criterion]\label{cor:ge-lin-pointwise}
+\uses{thm:average-character-criterion,lem:nonneg-correction}
+\lean{ProbabilityCharacter.pointwise_gt_two_pi_correctedAverage_gt, ProbabilityCharacter.pointwise_criterion_implies_average_criterion}
+\leanok
+If
+\[
+  L_i(\T,\Phiw)>2\pi
+  \qquad (i\in V),
+\]
+then the conclusion of the average character criterion holds.
+\end{corollary}
+
+\begin{proof}
+For $I=V$, the pointwise hypothesis gives $\ac_\Phi(V)>2\pi$.  For every
+nonempty proper $I\subsetneq V$,
+\[
+  L_\Phi(I)=\sum_{i\in I}L_i>2\pi |I|,
+\]
+and $\Delta_\Phi(I)\ge0$ by the non-negativity lemma.  Hence
+$\ac_\Phi(I)>2\pi$ for all nonempty $I\subseteq V$, and the theorem
+applies.
+\end{proof}
+
+\begin{corollary}[lower average character criterion]\label{cor:lower-average-character-criterion}
+\uses{thm:average-character-criterion,lem:obstruction-corrected-surplus,lem:nonneg-correction}
+\lean{ProbabilityCharacter.lower_average_character_criterion}\leanok
+Assume $\chi(X)<0$.  Suppose that there are constants $\eta>0$ and
+$M\ge1$ such that
+\[
+  \frac{1}{|I|}\sum_{i\in I}L_i\ge2\pi+\eta
+\]
+for every proper connected subset $I\subsetneq V$ with $|I|\ge M$, and
+that
+\[
+  \ac_\Phi(I)>2\pi
+\]
+for every proper connected subset $I\subsetneq V$ with $|I|<M$.  Then the
+hyperbolic combinatorial Ricci flow converges exponentially fast to the
+unique zero-curvature hyperbolic circle packing.
+\end{corollary}
+
+\begin{proof}
+It is enough to verify $\ac_\Phi(I)>2\pi$ for every nonempty proper
+$I\subsetneq V$.  Let such an $I$ be given, and decompose the full
+subcomplex $F_I$ into connected components $F_{I_1},\dots,F_{I_s}$, where
+$I=I_1\sqcup\cdots\sqcup I_s$ and each $I_a$ is connected in the induced
+one-skeleton.  A triangle with at least two vertices in $I$ has those two
+vertices joined by an edge, hence they lie in the same component.  Therefore
+the terms defining $B_\Phi(I)$ split over the components:
+\[
+  B_\Phi(I)=\sum_{a=1}^s B_\Phi(I_a).
+\]
+
+If $|I_a|\ge M$, then
+\[
+  L_\Phi(I_a)>2\pi |I_a|
+\]
+and $\Delta_\Phi(I_a)\ge0$, so $B_\Phi(I_a)>0$ by the obstruction identity.
+If $|I_a|<M$, then the assumed corrected inequality gives
+$B_\Phi(I_a)>0$.  Thus $B_\Phi(I)>0$ for every nonempty proper $I$.
+The assumption $\chi(X)<0$ gives $\ac_\Phi(V)>2\pi$ by Ge--Lin's average
+character formula.  The average character criterion applies.
+\end{proof}
+
+\section{Usable forms of the criterion}
+
+The quantity $\ac_\Phi(I)$ is useful for the proof because it is exactly
+the Chow--Luo obstruction written in character language.  It is not the
+most convenient form for applications.  In this section we extract simpler
+tests from it.
+
+\begin{corollary}[only potentially bad subsets need checking]\label{cor:only-potentially-bad-subsets}
+\uses{cor:lower-average-character-criterion,thm:average-character-criterion,lem:nonneg-correction}
+\lean{ProbabilityCharacter.corollary_one_only_potentially_bad_subsets}\leanok
+Assume $\chi(X)<0$.  Suppose that
+\[
+  \ac_\Phi(I)>2\pi
+\]
+for every nonempty proper connected subset $I\subsetneq V$ satisfying
+\[
+  L_\Phi(I)\le 2\pi |I|.
+\]
+Then the hyperbolic combinatorial Ricci flow converges exponentially fast
+to the unique zero-curvature hyperbolic circle packing.
+\end{corollary}
+
+\begin{proof}
+Let $I\subsetneq V$ be nonempty and connected.  If
+$L_\Phi(I)>2\pi |I|$, then $\Delta_\Phi(I)\ge0$ gives
+$\ac_\Phi(I)>2\pi$.  If $L_\Phi(I)\le2\pi |I|$, the desired inequality is
+assumed.  Hence the corrected average inequality holds for every nonempty
+proper connected subset.  The proof of the lower average character
+criterion shows that this is enough to get it for arbitrary nonempty proper
+subsets, and then the average character criterion applies.
+\end{proof}
+
+\begin{corollary}[constant weight formula]\label{cor:constant-weight-formula}
+\uses{def:boundary-corrected-average,lem:comparison-angle}
+\lean{ProbabilityCharacter.constant_weight_formula, ProbabilityCharacter.constant_weight_formula_nat}\leanok
+Assume $\Phiw\equiv\varphi$ is constant.  For every nonempty proper
+subset $I\subsetneq V$,
+\[
+  \ac_\Phi(I)>2\pi
+\]
+is equivalent to
+\[
+  \sum_{i\in I}(d_i-6)+|\mathcal F_2(I)|
+  +\left(2-\frac{3\varphi}{\pi}\right)|\mathcal F_1(I)|>0.
+\]
+\end{corollary}
+
+\begin{proof}
+For constant weight, each comparison angle is $\pi/3$.  Hence
+\[
+  L_\Phi(I)=\frac{\pi}{3}\sum_{i\in I}d_i
+\]
+and
+\[
+  \Delta_\Phi(I)
+  =
+  \frac{\pi}{3}|\mathcal F_2(I)|
+  +\left(\frac{2\pi}{3}-\varphi\right)|\mathcal F_1(I)|.
+\]
+The inequality $L_\Phi(I)+\Delta_\Phi(I)>2\pi |I|$ is therefore equivalent
+to the displayed formula after multiplying by $3/\pi$.
+\end{proof}
+
+\begin{corollary}[tangent circle packings]\label{cor:tangent-circle-packings}
+\uses{cor:only-potentially-bad-subsets,cor:constant-weight-formula}
+\lean{ProbabilityCharacter.corollary_two_tangent_circle_packings}\leanok
+Assume $\Phiw\equiv0$ and $\chi(X)<0$.  Suppose that for every nonempty
+proper connected subset $I\subsetneq V$ with
+\[
+  \sum_{i\in I}d_i\le 6|I|
+\]
+one has
+\[
+  \sum_{i\in I}(d_i-6)+|\mathcal F_2(I)|+2|\mathcal F_1(I)|>0.
+\]
+Then the hyperbolic combinatorial Ricci flow converges exponentially fast
+to the unique zero-curvature tangent circle packing.
+\end{corollary}
+
+\begin{proof}
+This is the previous two corollaries in the special case $\varphi=0$.
+\end{proof}
+
+\begin{remark}[bad clusters and discharging]
+The preceding tangent criterion is often much easier to check than the
+exact $\ac_\Phi$ inequality: only connected subsets whose average degree is
+at most six can be dangerous, and their boundary faces contribute the
+positive correction
+\[
+  |\mathcal F_2(I)|+2|\mathcal F_1(I)|.
+\]
+This suggests a local ``bad cluster'' strategy.  Let the initial charge be
+$d_i-6$ in the tangent case, or more generally $L_i-2\pi$.  Low-charge
+vertices may be allowed if every connected cluster with non-positive total
+charge receives enough boundary correction.  A still more local
+discharging criterion would distribute the positive surplus and boundary
+correction among nearby low-charge vertices.  Such a discharging lemma
+would be a convenient sufficient condition for the exact criterion above,
+but it should be stated separately once the chosen redistribution rule is
+fixed.
+\end{remark}
+
+\section{Degree criteria as special cases}
+
+The corrected average character criterion contains the familiar
+degree-type criteria as special cases.
+
+\begin{corollary}[constant weight, pointwise degree criterion]\label{cor:constant-weight-pointwise-degree}
+\uses{cor:ge-lin-pointwise,cor:constant-weight-formula}
+\lean{ProbabilityCharacter.pointwise_degree_criterion_constant_weight}\leanok
+Assume that $\Phiw:E\to[0,\pi/2]$ is constant.  If
+\[
+  d_i\ge7\qquad (i\in V),
+\]
+then the hyperbolic combinatorial Ricci flow converges exponentially fast
+to the unique zero-curvature hyperbolic circle packing.
+\end{corollary}
+
+\begin{proof}
+When $\Phiw$ is constant, Ge--Lin's character at a vertex is
+\[
+  L_i=\sum_{f\ni i}\frac{\pi}{3}=\frac{\pi d_i}{3}.
+\]
+Thus $d_i\ge7$ implies
+\[
+  L_i\ge\frac{7\pi}{3}>2\pi
+\]
+for every vertex.  The pointwise character corollary applies.
+\end{proof}
+
+\begin{corollary}[arbitrary weight, pointwise degree criterion]\label{cor:arbitrary-weight-pointwise-degree}
+\uses{cor:ge-lin-pointwise}
+\lean{ProbabilityCharacter.pointwise_degree_criterion_arbitrary_weight}\leanok
+Assume that $\Phiw:E\to[0,\pi/2]$ is arbitrary.  If
+\[
+  d_i\ge9\qquad (i\in V),
+\]
+then the hyperbolic combinatorial Ricci flow converges exponentially fast
+to the unique zero-curvature hyperbolic circle packing.
+\end{corollary}
+
+\begin{proof}
+For $\Phiw\in[0,\pi/2]$, Ge--Lin's angle estimate gives
+\[
+  L_i\ge d_i\arccos\frac34.
+\]
+Since $9\arccos(3/4)>2\pi$, the condition $d_i\ge9$ implies
+$L_i>2\pi$ for every vertex.  The pointwise character corollary applies.
+\end{proof}
+
+\begin{corollary}[constant weight, large-set lower average degree criterion]\label{cor:large-set-lower-average-degree}
+\uses{cor:lower-average-character-criterion,cor:constant-weight-formula}
+\lean{ProbabilityCharacter.corollary_three_large_set_lower_average_degree}\leanok
+Assume that $\Phiw:E\to[0,\pi/2]$ is constant and that $\chi(X)<0$.
+Suppose that there are a constant $\eta>0$ and an integer $M\ge2$ such that
+\[
+  \frac1{|I|}\sum_{i\in I}d_i \ge 6+\eta
+\]
+for every proper connected subset $I\subsetneq V$ with $|I|\ge M$, and
+that every smaller proper connected subset satisfies the corrected test
+\[
+  \ac_\Phi(I)>2\pi
+\]
+whenever $|I|<M$.  Then the hyperbolic combinatorial Ricci flow converges
+exponentially fast to the unique zero-curvature hyperbolic circle packing.
+\end{corollary}
+
+\begin{proof}
+For constant weight, $L_i=\pi d_i/3$.  Hence, for every proper connected
+$I\subsetneq V$ with $|I|\ge M$,
+\[
+  \frac1{|I|}\sum_{i\in I}L_i
+  =
+  \frac{\pi}{3|I|}\sum_{i\in I}d_i
+  \ge
+  2\pi+\frac{\pi\eta}{3}.
+\]
+The lower average character criterion applies, with $\pi\eta/3$ in place
+of $\eta$.
+\end{proof}
+
+\begin{remark}[the singleton test does not force degree at least seven]
+The restriction $M\ge2$ is not needed for the proof; the statement would
+remain true with $M=1$, but then the large-set average degree condition
+would apply to singletons and would force $d_v\ge7$ in the constant
+tangency case.  The present formulation is the intended large-set version:
+singletons are handled by the corrected small-set test instead.
+
+For a singleton $I=\{v\}$ and constant weight $\Phiw\equiv\varphi$, every
+incident face lies in $\mathcal F_1(I)$ and
+\[
+  L_v=\frac{\pi d_v}{3},\qquad
+  \Delta_\Phi(\{v\})
+  =
+  d_v\left(\pi-\varphi-\frac{\pi}{3}\right).
+\]
+Therefore
+\[
+  \ac_\Phi(\{v\})=d_v(\pi-\varphi).
+\]
+In particular, in the tangency case $\varphi=0$, the singleton condition is
+only $d_v\pi>2\pi$, i.e. $d_v>2$.  Thus vertices of degree $3,4,5,$ or $6$
+are not excluded by the singleton condition.  Low-degree vertices are
+allowed provided the corrected inequalities for all small connected
+subsets containing them are satisfied.
+\end{remark}
+
+\section{Relation to the source ideas}
+
+The result above is a finite closed-surface analogue of the lower average
+valence idea in He--Schramm: a pointwise local condition is replaced by
+conditions over finite connected vertex sets.  The quantity replacing
+average degree is the corrected average character $\ac_\Phi(I)$.
+
+It also mirrors the angle-sum bookkeeping in
+Angel--Hutchcroft--Nachmias--Ray.  There, mass transport converts local
+angle sums of circle-packed triangles into an average degree criterion.  In
+the finite setting here, the same aggregation appears as the exact identity
+\[
+  B_\Phi(I)=|I|(\ac_\Phi(I)-2\pi),
+\]
+which is the boundary-corrected finite subset version of the same angle
+defect bookkeeping.
