@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - "home_page/**"
+      - ".github/workflows/**"
   pull_request:
   workflow_dispatch:
 

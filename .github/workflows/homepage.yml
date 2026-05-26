@@ -1,0 +1,91 @@
+name: Publish homepage
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "home_page/**"
+      - ".github/workflows/homepage.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: homepage-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+env:
+  SITE_URL: https://xiyou-wu.github.io/GL-character
+
+jobs:
+  detect_changes:
+    runs-on: ubuntu-latest
+    outputs:
+      homepage_only: ${{ steps.detect.outputs.homepage_only }}
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
+        with:
+          fetch-depth: 2
+
+      - name: Check changed files
+        id: detect
+        shell: bash
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "homepage_only=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          base="${{ github.event.before }}"
+          if [ "$base" = "0000000000000000000000000000000000000000" ]; then
+            base="$(git rev-list --max-parents=0 HEAD)"
+          fi
+
+          changed_files="$(git diff --name-only "$base" HEAD)"
+          echo "$changed_files"
+
+          non_homepage_changes="$(echo "$changed_files" | grep -Ev '^(home_page/|\.github/workflows/homepage\.yml$)' || true)"
+          if [ -z "$non_homepage_changes" ]; then
+            echo "homepage_only=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "homepage_only=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  deploy_homepage:
+    needs: detect_changes
+    if: needs.detect_changes.outputs.homepage_only == 'true'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
+
+      - name: Mirror current generated site
+        shell: bash
+        run: |
+          mkdir -p site
+          wget --recursive --page-requisites --no-parent --no-host-directories --cut-dirs=1 \
+            --directory-prefix=site "$SITE_URL/blueprint/" || true
+          wget --recursive --page-requisites --no-parent --no-host-directories --cut-dirs=1 \
+            --directory-prefix=site "$SITE_URL/docs/" || true
+          wget --output-document=site/blueprint.pdf "$SITE_URL/blueprint.pdf" || true
+
+      - name: Overlay homepage
+        shell: bash
+        run: cp -R home_page/. site/
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa
+        with:
+          path: site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e
