@@ -23,3 +23,18 @@ div.corollary_thmcontent {
 div.proof_content {
 	border-left: .08rem solid grey;
 }
+
+/* Normalize Lean formalization markers in the generated web blueprint.
+ * leanblueprint currently renders \leanok as a visible check mark for
+ * definitions, while theorem-like statements with proofs only expose the Lean
+ * declaration modal. In this project every \lean annotation is paired with
+ * \leanok, so the Lean modal is the reliable generated marker to style. */
+div[class$="_thmheading"]:has(button.modal.lean) > div.thm_header_extras {
+	font-size: 0;
+}
+
+div[class$="_thmheading"]:has(button.modal.lean) > div.thm_header_extras::after {
+	content: "\2713";
+	font-size: 1rem;
+	margin-left: .35rem;
+}
