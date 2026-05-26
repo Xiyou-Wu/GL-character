@@ -1,0 +1,7 @@
+source: home_page
+destination: _site
+
+keep_files:
+  - blueprint
+  - docs
+  - blueprint.pdf

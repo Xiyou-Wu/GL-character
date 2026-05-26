@@ -1,4 +1,8 @@
 /.lake
+/_site
+/.bundle
+/.jekyll-cache
+/home_page/.jekyll-cache
 /blueprint/web
 /blueprint/print
 *.aux
