@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GL-character</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #f7f7f4;
+      --text: #171717;
+      --muted: #5f6368;
+      --line: #d8d8d0;
+      --accent: #1f6feb;
+      --panel: #ffffff;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #101214;
+        --text: #f1f3f4;
+        --muted: #b4b8bd;
+        --line: #30343a;
+        --accent: #79b8ff;
+        --panel: #171a1f;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.5;
+    }
+
+    main {
+      width: min(920px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 72px 0;
+    }
+
+    header {
+      margin-bottom: 36px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 28px;
+    }
+
+    h1 {
+      margin: 0 0 14px;
+      font-size: clamp(2rem, 6vw, 4.25rem);
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    p {
+      max-width: 720px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    nav {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .link-card {
+      display: block;
+      min-height: 128px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      padding: 20px;
+      transition: border-color 120ms ease, transform 120ms ease;
+    }
+
+    .link-card:hover,
+    .link-card:focus-visible {
+      border-color: var(--accent);
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    .link-card strong {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--accent);
+      font-size: 1.05rem;
+    }
+
+    .link-card span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>GL-character</h1>
+      <p>Lean 4 formalization and blueprint for average character criteria for Thurston circle packings.</p>
+    </header>
+
+    <nav aria-label="Project resources">
+      <a class="link-card" href="blueprint/">
+        <strong>Web blueprint</strong>
+        <span>Read the browsable blueprint with theorem statements and dependencies.</span>
+      </a>
+      <a class="link-card" href="blueprint.pdf">
+        <strong>PDF blueprint</strong>
+        <span>Open the printable version of the blueprint.</span>
+      </a>
+      <a class="link-card" href="docs/">
+        <strong>API docs</strong>
+        <span>Browse the generated Lean documentation.</span>
+      </a>
+      <a class="link-card" href="https://github.com/Xiyou-Wu/GL-character">
+        <strong>GitHub repository</strong>
+        <span>View the source code, blueprint source, and workflow configuration.</span>
+      </a>
+    </nav>
+  </main>
+</body>
+</html>
