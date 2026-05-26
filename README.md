@@ -1,5 +1,7 @@
 # GL-character
 
+[![Compile blueprint](https://github.com/Xiyou-Wu/GL-character/actions/workflows/blueprint.yml/badge.svg)](https://github.com/Xiyou-Wu/GL-character/actions/workflows/blueprint.yml)
+
 Lean 4 formalization and blueprint for average character criteria for Thurston circle packings.
 
 ## Local build
